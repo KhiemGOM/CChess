@@ -33,3 +33,7 @@ bool bishop::is_valid_move(board &game_board, position target) {
 bool bishop::is_valid_capture(board &game_board, position target) {
     return is_valid_move(game_board, target);
 }
+
+bishop *bishop::clone() const {
+    return new bishop(*this);
+}

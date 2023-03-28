@@ -15,3 +15,11 @@ bool king::is_valid_move(board &game_board, position target) {
 bool king::is_valid_capture(board &game_board, position target) {
     return is_valid_move(game_board, target);
 }
+
+king *king::clone() const {
+    return new king(*this);
+}
+
+void king::move_cleanup() {
+    has_moved = true;
+}

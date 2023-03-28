@@ -34,6 +34,8 @@ public:
     [[nodiscard]] bool is_out_of_moves(color_enum _color) const;
 
     board& clone() const;
+
+    bool able_to_castle (std::shared_ptr<pieces>& king, std::shared_ptr<pieces>& rook) const;
 };
 
 

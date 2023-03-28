@@ -8,6 +8,7 @@
 #include "board.h"
 #include "enum.h"
 
+class board;
 
 /**
  * @brief Class for storing position of a piece.
@@ -30,15 +31,21 @@ public:
 
 class pieces {
 public:
+    bool just_moved_2square{false};
+
+    bool has_moved{false};
+
     static bool is_within_field(position pos);
 
     position pos{0, 0};
     color_enum color{e_white};
     type_enum type{e_pawn};
 
-    virtual bool is_valid_move(board &game_board, position target);
+    virtual bool is_valid_move(board &game_board, position target) = 0;
 
-    virtual bool is_valid_capture(board &game_board, position target);
+    virtual bool is_valid_capture(board &game_board, position target) = 0;
+
+    virtual pieces *clone() const = 0;
 
     pieces(position _pos, color_enum _color, type_enum _type) : pos(_pos), color(_color), type(_type) {};
 
@@ -54,10 +61,12 @@ public:
 
     bool is_check(board &game_board, color_enum _color);
 
-    [[nodiscard]] bool is_being_checked(board game_board_copy, position target, color_enum _color) const;
+    virtual void move_cleanup() = 0;
+
+    [[nodiscard]] bool is_being_checked(board &game_board_copy, position target, color_enum _color) const;
 
 protected:
-    virtual bool is_obstruct(board &game_board, position target);
+    virtual bool is_obstruct(board &game_board, position target) = 0;
 };
 
 

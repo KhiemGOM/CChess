@@ -17,3 +17,7 @@ bool knight::is_valid_move(board &game_board, position target) {
 bool knight::is_valid_capture(board &game_board, position target) {
     return is_valid_move(game_board, target);
 }
+
+knight *knight::clone() const {
+    return new knight(*this);
+}

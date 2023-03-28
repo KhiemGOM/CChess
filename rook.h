@@ -10,6 +10,7 @@
 
 class rook : public pieces {
 public:
+
     rook(position _pos, color_enum _color) : pieces(_pos, _color, e_rook) {};
 
     bool is_valid_move(board &game_board, position target) override;
@@ -17,6 +18,10 @@ public:
     bool is_valid_capture(board &game_board, position target) override;
 
     bool is_obstruct(board &game_board, position target) override;
+
+    void move_cleanup() override;
+
+    rook *clone() const override;
 };
 
 

@@ -8,7 +8,7 @@
 
 #include "pieces.h"
 
-class pawn : public pieces{
+class pawn : public pieces {
 public:
     pawn(position _pos, color_enum _color) : pieces(_pos, _color, e_pawn) {};
 
@@ -17,6 +17,10 @@ public:
     bool is_valid_capture(board &game_board, position target) override;
 
     bool is_obstruct(board &game_board, position target) override;
+
+    void move_cleanup () override;
+
+    pawn *clone() const override;
 };
 
 

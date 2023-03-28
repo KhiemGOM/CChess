@@ -5,14 +5,6 @@
 #ifndef CHESS_COLOR_ENUM_H
 #define CHESS_COLOR_ENUM_H
 
-#include "pieces.h"
-#include "king.h"
-#include "queen.h"
-#include "rook.h"
-#include "bishop.h"
-#include "knight.h"
-#include "pawn.h"
-
 enum color_enum {
     e_black,
     e_white
@@ -26,8 +18,7 @@ enum move_state {
     valid_move,
     valid_capture,
     invalid_move,
-    check,
-    end_game
+    check
 };
 
 #endif //CHESS_COLOR_ENUM_H

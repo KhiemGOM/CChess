@@ -39,5 +39,13 @@ bool rook::is_valid_move(board &game_board, position target) {
 }
 
 bool rook::is_valid_capture(board &game_board, position target) {
-    return is_valid_move(game_board,target);
+    return is_valid_move(game_board, target);
+}
+
+rook *rook::clone() const {
+    return new rook(*this);
+}
+
+void rook::move_cleanup() {
+    has_moved = true;
 }

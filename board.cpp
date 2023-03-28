@@ -54,15 +54,14 @@ board &board::clone() const {
     auto *b = new board();
     for (int i = 0; i < NUM_OF_PIECES; i++) {
         if (val[i].get() != nullptr) {
-            b->val[i] = std::dynamic_pointer_cast<typeof(*val[i].get())>(std::make_shared<pieces>(*(val[i].get())));
+            auto temp = val[i]->clone();
+            b->val[i].reset(temp);
         }
     }
     return *b;
 }
 
-template <typename T>
-auto pieces_casting(pieces& piece)
-{
-    T = typeof(piece);
-    return std::dynamic_pointer_cast<T>(std::make_shared<pieces>(piece));
+bool board::able_to_castle(std::shared_ptr<pieces> &king, std::shared_ptr<pieces> &rook) const {
+    auto copy_board = clone();
+
 }

@@ -18,6 +18,9 @@ public:
 
     bool is_obstruct(board &game_board, position target) override;
 
+    bishop* clone() const override;
+
+    void move_cleanup () override {};
 };
 
 

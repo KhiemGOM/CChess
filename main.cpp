@@ -83,10 +83,17 @@ int main() {
                     move = r.value().get()->move(game_board, position{xf, yf});
                     if (move != invalid_move) {
                         std::cout << "Moved" << std::endl;
+                        for (auto &p: game_board.val) {
+                            if (p != nullptr) {
+                                if (p->type == e_pawn && p->color == turn && p != r.value().get()) {
+                                    p->just_moved_2square = false;
+                                }
+                            }
+                        }
                         if (game_board.is_out_of_moves(invert(turn))) {
                             if (move == check) {
                                 std::cout << std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
-                                             "won" << std::endl;
+                                             " won" << std::endl;
                                 return 0;
                             } else {
                                 std::cout << "Stalemate, draw" << std::endl;
@@ -101,7 +108,8 @@ int main() {
                     std::cout << "Invalid move: It's not their turn yet" << std::endl;
                 }
             } else {
-                std::cout << "Invalid move: No piece on " + std::to_string(xi+1) + " " + std::to_string(yi+1) << std::endl;
+                std::cout << "Invalid move: No piece on " + std::to_string(xi + 1) + " " + std::to_string(yi + 1)
+                          << std::endl;
             }
         }
     }

@@ -17,6 +17,10 @@ public:
     bool is_valid_capture(board &game_board,position target) override;
 
     bool is_obstruct(board &game_board,position target) override;
+
+    void move_cleanup() override {};
+
+    queen* clone() const override;
 };
 
 

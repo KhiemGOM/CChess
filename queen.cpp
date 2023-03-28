@@ -56,9 +56,14 @@ bool queen::is_obstruct(board &game_board, position target) {
 
 bool queen::is_valid_move(board &game_board, position target) {
     //Queen can move both diagonally and straight
-    return !is_obstruct(game_board, target)&&((pos.x == target.x || pos.y == target.y || abs(pos.x - target.x) == abs(pos.y - target.y)));
+    return !is_obstruct(game_board, target) &&
+           ((pos.x == target.x || pos.y == target.y || abs(pos.x - target.x) == abs(pos.y - target.y)));
 }
 
 bool queen::is_valid_capture(board &game_board, position target) {
     return is_valid_move(game_board, target);
+}
+
+queen *queen::clone() const {
+    return new queen(*this);
 }

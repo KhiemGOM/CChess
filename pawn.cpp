@@ -31,3 +31,11 @@ bool pawn::is_valid_capture(board &game_board, position target) {
            || (target.x == pos.x + 1 && target.y == pos.y - 1 && color == e_black)
            || (target.x == pos.x - 1 && target.y == pos.y - 1 && color == e_black);
 }
+
+pawn *pawn::clone() const {
+    return new pawn(*this);
+}
+
+void pawn::move_cleanup() {
+    just_moved_2square = true;
+}
