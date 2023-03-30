@@ -63,7 +63,7 @@ public:
 
     virtual void move_cleanup() = 0;
 
-    [[nodiscard]] bool is_being_checked(board &game_board_copy, position target, color_enum _color) const;
+    [[nodiscard]] bool is_being_checked(const board &game_board_copy, position target, color_enum _color) const;
 
 protected:
     virtual bool is_obstruct(board &game_board, position target) = 0;

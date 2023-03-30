@@ -26,38 +26,46 @@ int main() {
             {e_knight, 'N'},
             {e_empty,  ' '}
     };
+//    board game_board{std::make_shared<king>(position{4, 0}, color_enum::e_white),
+//                     std::make_shared<king>(position{4, 7}, color_enum::e_black),
+//                     std::make_shared<queen>(position{3, 0}, color_enum::e_white),
+//                     std::make_shared<queen>(position{3, 7}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{0, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{1, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{2, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{3, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{4, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{5, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{6, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{7, 1}, color_enum::e_white),
+//                     std::make_shared<pawn>(position{0, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{1, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{2, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{3, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{4, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{5, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{6, 6}, color_enum::e_black),
+//                     std::make_shared<pawn>(position{7, 6}, color_enum::e_black),
+//                     std::make_shared<rook>(position{0, 0}, color_enum::e_white),
+//                     std::make_shared<rook>(position{7, 0}, color_enum::e_white),
+//                     std::make_shared<rook>(position{0, 7}, color_enum::e_black),
+//                     std::make_shared<rook>(position{7, 7}, color_enum::e_black),
+//                     std::make_shared<bishop>(position{2, 0}, color_enum::e_white),
+//                     std::make_shared<bishop>(position{5, 0}, color_enum::e_white),
+//                     std::make_shared<bishop>(position{2, 7}, color_enum::e_black),
+//                     std::make_shared<bishop>(position{5, 7}, color_enum::e_black),
+//                     std::make_shared<knight>(position{1, 0}, color_enum::e_white),
+//                     std::make_shared<knight>(position{6, 0}, color_enum::e_white),
+//                     std::make_shared<knight>(position{1, 7}, color_enum::e_black),
+//                     std::make_shared<knight>(position{6, 7}, color_enum::e_black)};
+    //Set the game_board to a simpler position for castling testing
     board game_board{std::make_shared<king>(position{4, 0}, color_enum::e_white),
                      std::make_shared<king>(position{4, 7}, color_enum::e_black),
-                     std::make_shared<queen>(position{3, 0}, color_enum::e_white),
-                     std::make_shared<queen>(position{3, 7}, color_enum::e_black),
-                     std::make_shared<pawn>(position{0, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{1, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{2, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{3, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{4, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{5, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{6, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{7, 1}, color_enum::e_white),
-                     std::make_shared<pawn>(position{0, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{1, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{2, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{3, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{4, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{5, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{6, 6}, color_enum::e_black),
-                     std::make_shared<pawn>(position{7, 6}, color_enum::e_black),
                      std::make_shared<rook>(position{0, 0}, color_enum::e_white),
                      std::make_shared<rook>(position{7, 0}, color_enum::e_white),
                      std::make_shared<rook>(position{0, 7}, color_enum::e_black),
                      std::make_shared<rook>(position{7, 7}, color_enum::e_black),
-                     std::make_shared<bishop>(position{2, 0}, color_enum::e_white),
-                     std::make_shared<bishop>(position{5, 0}, color_enum::e_white),
-                     std::make_shared<bishop>(position{2, 7}, color_enum::e_black),
-                     std::make_shared<bishop>(position{5, 7}, color_enum::e_black),
-                     std::make_shared<knight>(position{1, 0}, color_enum::e_white),
-                     std::make_shared<knight>(position{6, 0}, color_enum::e_white),
-                     std::make_shared<knight>(position{1, 7}, color_enum::e_black),
-                     std::make_shared<knight>(position{6, 7}, color_enum::e_black)};
+                     std::make_shared<queen>(position{5, 3}, color_enum::e_black)};
     color_enum turn = e_white;
     while (!(GetKeyState(VK_ESCAPE) & 0x8000)) {
         //Display the pieces on the board
@@ -72,11 +80,19 @@ int main() {
                 return 0;
             }
             std::stringstream ss{input};
-            ss >> xi >> yi >> xf >> yf;
-            xi--;
-            yi--;
-            xf--;
-            yf--;
+            //If the first and 3rd word are character, convert them to numbers
+            char fst, snd, trd, fth;
+            ss >> fst >> snd >> trd >> fth;
+            if (fst >= 'a' && fst <= 'h' && trd >= 'a' && trd <= 'h'
+                && snd >= '1' && snd <= '8' && fth >= '1' && fth <= '8') {
+                xi = fst - 'a';
+                xf = trd - 'a';
+                yi = snd - '1';
+                yf = fth - '1';
+            } else {
+                std::cout << "Invalid input" << std::endl;
+                continue;
+            }
             auto r = game_board.find(position{xi, yi});
             if (r.has_value()) {
                 if (r.value().get()->color == turn) {

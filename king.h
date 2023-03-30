@@ -22,6 +22,8 @@ public:
     void move_cleanup () override;
 
     king* clone() const override;
+
+    ~king() override = default;
 };
 
 

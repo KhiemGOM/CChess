@@ -35,7 +35,7 @@ public:
 
     board& clone() const;
 
-    bool able_to_castle (std::shared_ptr<pieces>& king, std::shared_ptr<pieces>& rook) const;
+    bool able_to_castle (const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
 };
 
 
