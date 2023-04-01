@@ -6,6 +6,11 @@
 #include <memory>
 #include <optional>
 #include "board.h"
+#include "enum.h"
+#include "rook.h"
+#include "queen.h"
+#include "bishop.h"
+#include "knight.h"
 
 std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(position pos)
 {
@@ -40,8 +45,8 @@ std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(type_
 bool board::is_out_of_moves(color_enum _color) const
 {
     //Check if all pieces are out of moves
-    auto t = clone();
-    for (auto &piece: t.val)
+    auto game_board_copy = clone();
+    for (auto &piece: game_board_copy.val)
     {
         if (piece.get() != nullptr)
         {
@@ -51,9 +56,14 @@ bool board::is_out_of_moves(color_enum _color) const
                 {
                     for (int j = 0; j < 8; j++)
                     {
-                        if (piece->try_to_move(t, {i, j}) != move_state::invalid_move)
+                        for (type_enum type: {type_enum::e_king, type_enum::e_queen,
+                                              type_enum::e_rook, type_enum::e_bishop, type_enum::e_knight,
+                                              type_enum::e_pawn})
                         {
-                            return false;
+                            if (piece->try_to_move(game_board_copy, {i, j}, type) != move_state::invalid_move)
+                            {
+                                return false;
+                            }
                         }
                     }
                 }
@@ -171,4 +181,57 @@ bool board::is_being_checked(color_enum _color)
         }
     }
     return false;
+}
+
+//Return true if the input was successful
+bool board::promote(std::shared_ptr<pieces> &piece, position target, color_enum new_color)
+{
+    std::cout << "Enter the piece you want to promote to (q, r, b, n): ";
+    std::string input2;
+    getline(std::cin, input2);
+    std::shared_ptr<pieces> &piece_to_promote = find(piece->pos).value().get(); // NOLINT(bugprone-unchecked-optional-access)
+    if (input2 == "q")
+    {
+        piece_to_promote = std::make_shared<queen>(target, new_color);
+        return true;
+    }
+    if (input2 == "r")
+    {
+        piece_to_promote = std::make_shared<rook>(target, new_color);
+        return true;
+    }
+    if (input2 == "b")
+    {
+        piece_to_promote = std::make_shared<bishop>(target, new_color);
+        return true;
+    }
+    if (input2 == "n")
+    {
+        piece_to_promote = std::make_shared<knight>(target, new_color);
+        return true;
+    }
+    return false;
+}
+
+void board::promote(std::shared_ptr<pieces> &piece, position target, color_enum new_color, type_enum new_type)
+{
+    switch (new_type)
+    {
+        case type_enum::e_queen:
+            piece.reset(new queen{target, new_color});
+            break;
+        case type_enum::e_rook:
+            piece.reset(new rook{target, new_color});
+            break;
+        case type_enum::e_bishop:
+            piece.reset(new bishop{target, new_color});
+            break;
+        case type_enum::e_knight:
+            piece.reset(new knight{target, new_color});
+            break;
+        case type_enum::e_empty:
+            promote(piece, target, new_color);
+        default:
+            break;
+    }
 }

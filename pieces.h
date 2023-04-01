@@ -58,7 +58,7 @@ public:
 
     move_result move(board &game_board, position target);
 
-    move_state try_to_move(board &game_board, position target) const;
+    move_state try_to_move(board &game_board, position target, type_enum promotion_type) const;
 
     bool is_check(board &game_board, color_enum _color) const;
 

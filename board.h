@@ -38,6 +38,10 @@ public:
     [[nodiscard]] bool able_to_castle (const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
 
     [[nodiscard]] bool is_being_checked (color_enum _color);
+
+    bool promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color);
+
+    void promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
 };
 
 
