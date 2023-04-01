@@ -349,7 +349,12 @@ bool pieces::is_within_field(position pos)
  **/
 bool pieces::is_check(board& game_board, color_enum _color) const
 {
-	return is_valid_capture(game_board, game_board.find(e_king, _color).value().get()->pos);
+	auto king_temp = game_board.find(e_king, _color);
+	if (!king_temp.has_value())
+	{
+		return false;
+	}
+	return is_valid_capture(game_board, king_temp.value().get()->pos);
 }
 
 /**

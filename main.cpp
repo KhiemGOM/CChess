@@ -65,14 +65,11 @@ int main()
 					  std::make_shared<knight>(position {6, 0}, color_enum::e_white),
 					  std::make_shared<knight>(position {1, 7}, color_enum::e_black),
 					  std::make_shared<knight>(position {6, 7}, color_enum::e_black)};
-	//Set the game_board to a simpler position for castling testing
-//	board game_board {std::make_shared<king>(position {4, 0}, color_enum::e_white),
-//					  std::make_shared<king>(position {4, 7}, color_enum::e_black),
-//					  std::make_shared<rook>(position {0, 0}, color_enum::e_white),
-//					  std::make_shared<rook>(position {7, 0}, color_enum::e_white),
-//					  std::make_shared<rook>(position {0, 7}, color_enum::e_black),
-//					  std::make_shared<rook>(position {7, 7}, color_enum::e_black),
-//					  std::make_shared<queen>(position {5, 3}, color_enum::e_black)};
+	//Set the game_board to a simpler position for promotion testing
+	game_board = board {std::make_shared<pawn>(position {0, 5}, color_enum::e_white),
+						std::make_shared<king>(position {4, 0}, color_enum::e_white),
+						std::make_shared<king>(position {4, 7}, color_enum::e_black)};
+
 	color_enum turn = e_white;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
