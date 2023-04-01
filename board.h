@@ -27,15 +27,17 @@ public:
 
     board(std::initializer_list<std::shared_ptr<pieces>> list);;
 
-    std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
+    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
 
-    std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(type_enum type, color_enum color);
+    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(type_enum type, enum color_enum color);
 
     [[nodiscard]] bool is_out_of_moves(color_enum _color) const;
 
-    board& clone() const;
+    [[nodiscard]] board& clone() const;
 
-    bool able_to_castle (const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
+    [[nodiscard]] bool able_to_castle (const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
+
+    [[nodiscard]] bool is_being_checked (color_enum _color);
 };
 
 

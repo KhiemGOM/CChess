@@ -7,6 +7,7 @@
 
 #include "board.h"
 #include "enum.h"
+#include "move_result.h"
 
 class board;
 
@@ -41,11 +42,11 @@ public:
     color_enum color{e_white};
     type_enum type{e_pawn};
 
-    virtual bool is_valid_move(board &game_board, position target) = 0;
+    virtual bool is_valid_move(board &game_board, position target) const = 0;
 
-    virtual bool is_valid_capture(board &game_board, position target) = 0;
+    virtual bool is_valid_capture(board &game_board, position target) const = 0;
 
-    virtual pieces *clone() const = 0;
+    [[nodiscard]] virtual pieces *clone() const = 0;
 
     pieces(position _pos, color_enum _color, type_enum _type) : pos(_pos), color(_color), type(_type) {};
 
@@ -55,18 +56,18 @@ public:
 
     virtual ~pieces() = default;
 
-    enum move_state move(board &game_board, position target);
+    move_result move(board &game_board, position target);
 
-    move_state try_to_move(board &game_board, position target);
+    move_state try_to_move(board &game_board, position target) const;
 
-    bool is_check(board &game_board, color_enum _color);
+    bool is_check(board &game_board, color_enum _color) const;
 
     virtual void move_cleanup() = 0;
 
-    [[nodiscard]] bool is_being_checked(const board &game_board_copy, position target, color_enum _color) const;
+    [[nodiscard]] bool is_being_checked_after_move(const board &game_board, position target, color_enum _color) const;
 
 protected:
-    virtual bool is_obstruct(board &game_board, position target) = 0;
+    virtual bool is_obstruct(board &game_board, position target) const = 0;
 };
 
 

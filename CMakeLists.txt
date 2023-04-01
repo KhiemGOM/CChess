@@ -16,6 +16,6 @@ add_executable(Chess
     pawn.cpp pawn.h
     rook.cpp rook.h
     knight.cpp knight.h
-)
+        move_result.cpp move_result.h)
 
 target_include_directories(Chess PUBLIC .)

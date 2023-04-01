@@ -18,7 +18,10 @@ enum move_state {
     valid_move,
     valid_capture,
     invalid_move,
-    check
+    check,
+	check_capture,
+	promotion,
+	check_promotion
 };
 
 #endif //CHESS_COLOR_ENUM_H
