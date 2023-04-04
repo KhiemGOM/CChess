@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.24)
 project(Chess)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 set(Sources board.cpp pieces.cpp)
 set(Headers board.h pieces.h)

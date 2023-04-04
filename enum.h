@@ -15,8 +15,8 @@ enum type_enum {
 };
 
 enum move_state {
-    valid_move,
-    valid_capture,
+    move,
+    capture,
     invalid_move,
     check,
 	check_capture,

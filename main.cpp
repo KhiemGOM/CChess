@@ -18,6 +18,8 @@
 
 int g_c_normal = 7, g_c_white_piece = 15, g_c_black_piece = 0, g_c_white_tile = 112, g_c_black_tile = 160, g_c_normal_tile = 0;
 
+void DISPLAY_END_GAME(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason);
+
 void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board);
 
 color_enum INVERT(color_enum color);
@@ -25,10 +27,9 @@ color_enum INVERT(color_enum color);
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-avoid-magic-numbers"
 #pragma ide diagnostic ignored "modernize-use-trailing-return-type"
-
 #pragma ide diagnostic ignored "cppcoreguidelines-owning-memory"
 
-//TODO: Checking for 3-fold-repetition and 50 moves (Possibly insufficient material)
+//TODO: Checking for (Possibly insufficient material)
 //TODO: Standard chess move input (maybe)
 int main()
 {
@@ -71,16 +72,19 @@ int main()
 					  std::make_shared<knight>(position {6, 0}, color_enum::e_white),
 					  std::make_shared<knight>(position {1, 7}, color_enum::e_black),
 					  std::make_shared<knight>(position {6, 7}, color_enum::e_black)};
-	//Set the game_board to a simpler position for promotion testing
-	game_board = board {std::make_shared<pawn>(position {0, 5}, color_enum::e_white),
-						std::make_shared<king>(position {4, 0}, color_enum::e_white),
-						std::make_shared<king>(position {4, 7}, color_enum::e_black)};
+	//Set the game_board to a simpler position for checkmate testing
+//	game_board = board {std::make_shared<king>(position {6,5}, e_white),
+//						std::make_shared<king>(position {7,7}, e_black),
+//						std::make_shared<queen>(position {0,6}, e_white),
+//						std::make_shared<queen>(position {3,6}, e_black)};
 
+	std::vector<std::pair<board, color_enum>> game_history {};
 	color_enum turn = e_white;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
 		move_result move {invalid_move};
 		std::string input {}, word, message;
+		float move_count = 0.0F;
 		while (move.state == invalid_move)
 		{
 			//Display the pieces on the board
@@ -172,6 +176,7 @@ int main()
 					move = piece_at_start.value().get()->move(game_board, position {xf, yf});
 					if (move.state != invalid_move)
 					{
+						//Moved successfully
 						for (auto& p: game_board.val)
 						{
 							if (p != nullptr)
@@ -186,12 +191,52 @@ int main()
 						{
 							if (move.state == check)
 							{
-								std::cout << std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
-											 " won" << '\n';
+								DISPLAY_END_GAME(type_to_char, game_board,
+										std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
+										" won");
 								return 0;
 							}
-							std::cout << "Stalemate, draw" << '\n';
+							DISPLAY_END_GAME(type_to_char, game_board, "Stalemate, draw");
 							return 0;
+						}
+						//Check for 3-fold repetition
+						int count = 0;
+						for (const auto& a: game_history)
+						{
+							if (a.second != turn)
+							{
+								continue;
+							}
+							auto result = a.first.compare(game_board);
+							if (result == 0)
+							{
+								count++;
+							}
+							if (result == -1)
+							{
+								//game_history.clear();
+								//break;
+							}
+						}
+						if (count >= 2)
+						{
+							DISPLAY_END_GAME(type_to_char, game_board, "Three-fold repetition, draw");
+							return 0;
+						}
+						game_history.emplace_back(game_board.clone(), turn);
+
+						//50 moves
+						if (piece_at_start.value().get()->type == e_pawn || move.state == move_state::capture || move.state == move_state::check_capture)
+						{
+							move_count = 0;
+						}
+						else
+						{
+							move_count += 0.5;
+							if (move_count >= 49.99)
+							{
+								DISPLAY_END_GAME(type_to_char, game_board, "50 moves without progress, draw");
+							}
 						}
 						turn = INVERT(turn);
 					}
@@ -208,8 +253,9 @@ int main()
 			}
 			else
 			{
-				message = "Invalid move: No piece on " + std::string(1, xi + 'a') + std::to_string(
-						yi + 1); // NOLINT(bugprone-narrowing-conversions,cppcoreguidelines-narrowing-conversions)
+				message = "Invalid move: No piece on " + std::string(1, xi + 'a') + // NOLINT(bugprone-narrowing-conversions)
+						  std::to_string(
+								  yi + 1);
 			}
 		}
 	}
@@ -261,4 +307,13 @@ void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board)
 		std::cout << '\n';
 	}
 	std::cout << "  A B C D E F G H" << '\n';
+}
+
+void DISPLAY_END_GAME(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason)
+{
+	HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+	system("cls");
+	DISPLAY_BOARD(type_to_char, game_board);
+	std::cout << "Game ended: " << reason << '\n';
 }

@@ -24,9 +24,9 @@ public:
 
     position() = default;
 
-    bool operator==(const position &other) const {
-        return x == other.x && y == other.y;
-    }
+    bool operator==(const position &other) const = default;
+
+	bool operator!=(const position &other) const = default;
 };
 
 
@@ -53,6 +53,12 @@ public:
     pieces() = default;
 
     pieces(const pieces &a) = default;
+
+	pieces(pieces&& a) = default;
+
+	pieces& operator=(const pieces& other) = default;
+
+	pieces& operator=(pieces&& other) = default;
 
     virtual ~pieces() = default;
 

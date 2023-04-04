@@ -21,15 +21,23 @@ class board {
 public:
     std::array<std::shared_ptr<pieces>, NUM_OF_PIECES> val;
 
-    board(board& b) = default;
+    board(const board& b) = default;
+
+	board(board&& b) = default;
 
     board() = default;
 
-    board(std::initializer_list<std::shared_ptr<pieces>> list);;
+	~board() = default;
 
-    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
+	board& operator=(const board& other) = default;
 
-    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(type_enum type, enum color_enum color);
+	board& operator=(board&& other) = default;
+
+    board(std::initializer_list<std::shared_ptr<pieces>> list);
+
+    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos) const;
+
+    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(type_enum type, enum color_enum color) const;
 
     [[nodiscard]] bool is_out_of_moves(color_enum _color) const;
 
@@ -42,6 +50,8 @@ public:
     bool promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color);
 
     void promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
+
+	[[nodiscard]] short compare(const board& other) const;
 };
 
 
