@@ -12,7 +12,7 @@
 #include "bishop.h"
 #include "knight.h"
 
-std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(position pos) const
+std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find(position pos) const
 {
 	for (const std::shared_ptr<pieces>& piece: val)
 	{
@@ -20,14 +20,14 @@ std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(posit
 		{
 			if (piece->pos.x == pos.x && piece->pos.y == pos.y)
 			{
-				return {(std::shared_ptr<pieces>&)piece};
+				return {piece};
 			}
 		}
 	}
 	return {};
 }
 
-std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(type_enum type, enum color_enum color) const
+std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find(type_enum type, enum color_enum color) const
 {
 	for (const std::shared_ptr<pieces>& piece: val)
 	{
@@ -35,7 +35,7 @@ std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(type_
 		{
 			if (piece->type == type && piece->color == color)
 			{
-				return {(std::shared_ptr<pieces>&)piece};
+				return {piece};
 			}
 		}
 	}
@@ -281,4 +281,34 @@ short board::compare(const board& other) const
 		}
 	}
 	return diff_pos ? 1 : 0;
+}
+
+std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(type_enum type, enum color_enum color)
+{
+	for (auto& piece: val)
+	{
+		if (piece.get() != nullptr)
+		{
+			if (piece->type == type && piece->color == color)
+			{
+				return {piece};
+			}
+		}
+	}
+	return {};
+}
+
+std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(position pos)
+{
+	for (auto& piece: val)
+	{
+		if (piece.get() != nullptr)
+		{
+			if (piece->pos == pos)
+			{
+				return {piece};
+			}
+		}
+	}
+	return {};
 }

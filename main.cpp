@@ -99,7 +99,7 @@ int main()
 			DISPLAY_BOARD(type_to_char, game_board);
 			int xi
 					{}, yi {}, xf {}, yf {};
-			std::cout << "Enter a move(xi + yi + xf + yf/exit to stop program/config to change color): ";
+			std::cout << "Enter a move(the coordinate (x (in letters), y (in numbers)) of the starting square then the coordinate of the target square)/exit to stop program/config to change color): ";
 			std::getline(std::cin, input);
 			if (input == "exit")
 			{

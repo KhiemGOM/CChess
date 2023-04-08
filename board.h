@@ -16,16 +16,17 @@ class pieces;
 
 class position;
 
-class board {
-    static const int NUM_OF_PIECES = 32;
+class board
+{
+	static const int NUM_OF_PIECES = 32;
 public:
-    std::array<std::shared_ptr<pieces>, NUM_OF_PIECES> val;
+	std::array<std::shared_ptr<pieces>, NUM_OF_PIECES> val;
 
-    board(const board& b) = default;
+	board(const board& b) = default;
 
 	board(board&& b) = default;
 
-    board() = default;
+	board() = default;
 
 	~board() = default;
 
@@ -33,26 +34,31 @@ public:
 
 	board& operator=(board&& other) = default;
 
-    board(std::initializer_list<std::shared_ptr<pieces>> list);
+	board(std::initializer_list<std::shared_ptr<pieces>> list);
 
-    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos) const;
+	[[nodiscard]] std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> find(position pos) const;
 
-    [[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(type_enum type, enum color_enum color) const;
+	[[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
 
-    [[nodiscard]] bool is_out_of_moves(color_enum _color) const;
+	[[nodiscard]] std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>>
+	find(type_enum type, enum color_enum color) const;
 
-    [[nodiscard]] board& clone() const;
+	[[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>>
+	find(type_enum type, enum color_enum color);
 
-    [[nodiscard]] bool able_to_castle (const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
+	[[nodiscard]] bool is_out_of_moves(color_enum _color) const;
 
-    [[nodiscard]] bool is_being_checked (color_enum _color);
+	[[nodiscard]] board& clone() const;
 
-    bool promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color);
+	[[nodiscard]] bool able_to_castle(const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
 
-    void promote (std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
+	[[nodiscard]] bool is_being_checked(color_enum _color);
+
+	bool promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color);
+
+	void promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
 
 	[[nodiscard]] short compare(const board& other) const;
 };
-
 
 #endif //CHESS_BOARD_H
