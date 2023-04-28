@@ -5,6 +5,7 @@
 #ifndef CHESS_BOARD_H
 #define CHESS_BOARD_H
 
+#include <string>
 #include <vector>
 #include <array>
 #include <memory>
@@ -12,9 +13,11 @@
 #include <optional>
 #include "enum.h"
 
+class position;
+class standard_move;
+
 class pieces;
 
-class position;
 
 class board
 {
@@ -40,6 +43,8 @@ public:
 
 	[[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
 
+	[[nodiscard]] std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>> find_all(type_enum type, enum color_enum color, auto condi) const;
+
 	[[nodiscard]] std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>>
 	find(type_enum type, enum color_enum color) const;
 
@@ -59,6 +64,8 @@ public:
 	void promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
 
 	[[nodiscard]] short compare(const board& other) const;
+
+	[[nodiscard]] standard_move interpret(std::string input, color_enum color) const;
 };
 
 #endif //CHESS_BOARD_H

@@ -56,10 +56,10 @@ RM = "D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\C++\Chess2\Chess
+CMAKE_SOURCE_DIR = D:\C++\Chess
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\C++\Chess2\Chess\cmake-build-release
+CMAKE_BINARY_DIR = D:\C++\Chess\cmake-build-release
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess2\Chess\cmake-build-release\CMakeFiles D:\C++\Chess2\Chess\cmake-build-release\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess\cmake-build-release\CMakeFiles D:\C++\Chess\cmake-build-release\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess2\Chess\cmake-build-release\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess\cmake-build-release\CMakeFiles 0
 .PHONY : all
 
 # The main clean target

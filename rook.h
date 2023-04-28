@@ -13,11 +13,11 @@ public:
 
     rook(position _pos, color_enum _color) : pieces(_pos, _color, e_rook) {};
 
-    bool is_valid_move(board &game_board, position target) const override;
+    bool is_valid_move(const board& game_board, position target) const override;
 
-    bool is_valid_capture(board &game_board, position target) const override;
+    bool is_valid_capture(const board& game_board, position target) const override;
 
-    bool is_obstruct(board &game_board, position target) const override;
+    bool is_obstruct(const board& game_board, position target) const override;
 
     void move_cleanup() override;
 

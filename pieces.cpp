@@ -4,6 +4,7 @@
 
 #include "pieces.h"
 #include "board.h"
+#include "enum.h"
 #include "move_result.h"
 #include <string>
 
@@ -20,7 +21,7 @@ color_enum INVERT(color_enum color)
 	return e_white;
 }
 
-move_result pieces::move(board& game_board, position target)
+move_result pieces::move(board &game_board, position target, type_enum promotion_type)
 {
 	if (!is_within_field(target))
 	{
@@ -123,16 +124,23 @@ move_result pieces::move(board& game_board, position target)
 			if ((type == e_pawn && color == e_white && target.y == 7) ||
 				(type == e_pawn && color == e_black && target.y == 0))
 			{
-				//Change type
-				if (!game_board.promote(shared_ptr_of_this, target, color))
+				if (promotion_type != e_empty)
 				{
-					return move_result {move_state::invalid_move, "Invalid input for promotion"};
+					game_board.promote(shared_ptr_of_this, target, color, promotion_type);
 				}
-				if (is_check(game_board, INVERT(color)))
+				else
 				{
-					return move_result {move_state::check_promotion};
+					//Change type
+					if (!game_board.promote(shared_ptr_of_this, target, color))
+					{
+						return move_result {move_state::invalid_move, "Invalid input for promotion"};
+					}
+					if (is_check(game_board, INVERT(color)))
+					{
+						return move_result {move_state::check_promotion};
+					}
+					return move_result {move_state::promotion};
 				}
-				return move_result {move_state::promotion};
 			}
 			if (is_check(game_board, INVERT(color)))
 			{
@@ -208,16 +216,23 @@ move_result pieces::move(board& game_board, position target)
 		if ((type == e_pawn && color == e_white && target.y == 7) ||
 			(type == e_pawn && color == e_black && target.y == 0))
 		{
-			//Change type
-			if (!game_board.promote(shared_ptr_of_this, target, color))
+			if (promotion_type != e_empty)
 			{
-				return move_result {move_state::invalid_move, "Invalid input for promotion"};
+				game_board.promote(shared_ptr_of_this, target, color, promotion_type);
 			}
-			if (is_check(game_board, INVERT(color)))
+			else
 			{
-				return move_result {move_state::check_promotion};
+				//Change type
+				if (!game_board.promote(shared_ptr_of_this, target, color))
+				{
+					return move_result {move_state::invalid_move, "Invalid input for promotion"};
+				}
+				if (is_check(game_board, INVERT(color)))
+				{
+					return move_result {move_state::check_promotion};
+				}
+				return move_result {move_state::promotion};
 			}
-			return move_result {move_state::promotion};
 		}
 		if (is_check(game_board, INVERT(color)))
 		{
@@ -320,7 +335,6 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			if ((type == e_pawn && color == e_white && target.y == 7) ||
 				(type == e_pawn && color == e_black && target.y == 0))
 			{
-
 				//Change type
 				game_board.promote(shared_ptr_of_this, target, color, promotion_type);
 				if (is_check(game_board, INVERT(color)))

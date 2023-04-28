@@ -25,11 +25,22 @@ public:
     position() = default;
 
     bool operator==(const position &other) const = default;
-
-	bool operator!=(const position &other) const = default;
 };
 
+struct standard_move
+{
+	position from {0, 0};
+	position to {0, 0};
+	move_state state {};
+	type_enum promotion_type {};
+	std::string err{};
 
+	standard_move(position from, position to, move_state state, type_enum promotion_type = type_enum::e_empty)
+			: from(from), to(to), state(state), promotion_type(promotion_type)
+	{};
+	standard_move(move_state state, std::string err): state(state), err(err){};
+	standard_move() = default;
+};
 class pieces {
 public:
     bool just_moved_2square{false};
@@ -42,9 +53,9 @@ public:
     color_enum color{e_white};
     type_enum type{e_pawn};
 
-    virtual bool is_valid_move(board &game_board, position target) const = 0;
+    [[nodiscard]] virtual bool is_valid_move(const board& game_board, position target) const = 0;
 
-    virtual bool is_valid_capture(board &game_board, position target) const = 0;
+    [[nodiscard]] virtual bool is_valid_capture(const board& game_board, position target) const = 0;
 
     [[nodiscard]] virtual pieces *clone() const = 0;
 
@@ -62,7 +73,7 @@ public:
 
     virtual ~pieces() = default;
 
-    move_result move(board &game_board, position target);
+    move_result move(board &game_board, position target, type_enum promotion_type);
 
     move_state try_to_move(board &game_board, position target, type_enum promotion_type) const;
 
@@ -73,7 +84,7 @@ public:
     [[nodiscard]] bool is_being_checked_after_move(const board &game_board, position target, color_enum _color) const;
 
 protected:
-    virtual bool is_obstruct(board &game_board, position target) const = 0;
+    virtual bool is_obstruct(const board& game_board, position target) const = 0;
 };
 
 

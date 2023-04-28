@@ -30,7 +30,6 @@ color_enum INVERT(color_enum color);
 #pragma ide diagnostic ignored "cppcoreguidelines-owning-memory"
 
 //TODO: Checking for (Possibly insufficient material)
-//TODO: Standard chess move input (maybe)
 int main()
 {
 	std::map<type_enum, char> type_to_char {{e_king,   'K'},
@@ -80,6 +79,8 @@ int main()
 
 	std::vector<std::pair<board, color_enum>> game_history {};
 	color_enum turn = e_white;
+	type_enum promotion_type = e_empty;
+	bool standard_notation = true;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
 		move_result move {invalid_move};
@@ -99,8 +100,21 @@ int main()
 			DISPLAY_BOARD(type_to_char, game_board);
 			int xi
 					{}, yi {}, xf {}, yf {};
-			std::cout << "Enter a move(the coordinate (x (in letters), y (in numbers)) of the starting square then the coordinate of the target square)/exit to stop program/config to change color): ";
+			if (!standard_notation)
+			{
+				std::cout
+						<< R"(Enter a move(the coordinate (x (in letters), y (in numbers)) of the starting square then the coordinate of the target square)/"exit" to stop program/"config" to change color/"notation" to change move notation): )";
+			}
+			else
+			{
+				std::cout
+						<< R"(Enter a move in standard notation (e.g. "Nxe4"/"e8=Q")/"exit" to stop program/"config" to change color/"notation" to change move notation): )";
+			}
 			std::getline(std::cin, input);
+			if (input.empty())
+			{
+				continue;
+			}
 			if (input == "exit")
 			{
 				return 0;
@@ -151,111 +165,152 @@ int main()
 				system("cls");
 				continue;
 			}
-			//If the first and 3rd word are character, convert them to numbers
-			std::stringstream ss {input};
-			char fst {}, snd {}, trd {}, fth {};
-			ss >> fst >> snd >> trd >> fth;
-			if (fst >= 'a' && fst <= 'h' && trd >= 'a' && trd <= 'h' && snd >= '1' && snd <= '8' && fth >= '1' &&
-				fth <= '8')
+			if (input == "notation")
 			{
-				xi = fst - 'a';
-				xf = trd - 'a';
-				yi = snd - '1';
-				yf = fth - '1';
-			}
-			else
-			{
-				message = "Invalid input";
-				continue;
-			}
-			auto piece_at_start = game_board.find(position {xi, yi});
-			if (piece_at_start.has_value())
-			{
-				if (piece_at_start.value().get()->color == turn)
+				std::cout
+						<< R"(Input your notation ("standard" for standard move notation(Nxe4)/"coordinate" for coordinate move notation(e1e4)): )";
+				std::string temp;
+				std::cin >> temp;
+				if (temp == "standard")
 				{
-					move = piece_at_start.value().get()->move(game_board, position {xf, yf});
-					if (move.state != invalid_move)
-					{
-						//Moved successfully
-						for (auto& p: game_board.val)
-						{
-							if (p != nullptr)
-							{
-								if (p->type == e_pawn && p->color == turn && p != piece_at_start.value().get())
-								{
-									p->just_moved_2square = false;
-								}
-							}
-						}
-						if (game_board.is_out_of_moves(INVERT(turn)))
-						{
-							if (move.state == check)
-							{
-								DISPLAY_END_GAME(type_to_char, game_board,
-										std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
-										" won");
-								return 0;
-							}
-							DISPLAY_END_GAME(type_to_char, game_board, "Stalemate, draw");
-							return 0;
-						}
-						//Check for 3-fold repetition
-						int count = 0;
-						for (const auto& a: game_history)
-						{
-							if (a.second != turn)
-							{
-								continue;
-							}
-							auto result = a.first.compare(game_board);
-							if (result == 0)
-							{
-								count++;
-							}
-							if (result == -1)
-							{
-								//game_history.clear();
-								//break;
-							}
-						}
-						if (count >= 2)
-						{
-							DISPLAY_END_GAME(type_to_char, game_board, "Three-fold repetition, draw");
-							return 0;
-						}
-						game_history.emplace_back(game_board.clone(), turn);
-
-						//50 moves
-						if (piece_at_start.value().get()->type == e_pawn || move.state == move_state::capture || move.state == move_state::check_capture)
-						{
-							move_count = 0;
-						}
-						else
-						{
-							move_count += 0.5;
-							if (move_count >= 49.99)
-							{
-								DISPLAY_END_GAME(type_to_char, game_board, "50 moves without progress, draw");
-							}
-						}
-						turn = INVERT(turn);
-					}
-					else
-					{
-						message = "Invalid move: " + move.message;
-					}
+					standard_notation = true;
+				}
+				else if (temp == "coordinate")
+				{
+					standard_notation = false;
 				}
 				else
 				{
-					message = std::string("Invalid move: It's not ").append(turn == e_white ? "black's" : "white's") +
-							  " turn yet";
+					message = "Invalid notation type";
+				}
+				continue;
+			}
+			std::stringstream ss {input};
+			std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> piece_at_start {};
+			if (!standard_notation)
+			{
+				//If the first and 3rd word are character, convert them to numbers
+				char fst {}, snd {}, trd {}, fth {};
+				ss >> fst >> snd >> trd >> fth;
+				if (fst >= 'a' && fst <= 'h' && trd >= 'a' && trd <= 'h' && snd >= '1' && snd <= '8' && fth >= '1' &&
+					fth <= '8')
+				{
+					xi = fst - 'a';
+					xf = trd - 'a';
+					yi = snd - '1';
+					yf = fth - '1';
+				}
+				else
+				{
+					message = "Invalid input";
+					continue;
 				}
 			}
 			else
 			{
-				message = "Invalid move: No piece on " + std::string(1, xi + 'a') + // NOLINT(bugprone-narrowing-conversions)
+				auto move_r = game_board.interpret(ss.str(), turn);
+				if (move_r.state != invalid_move)
+				{
+					xi = move_r.from.x;
+					yi = move_r.from.y;
+					xf = move_r.to.x;
+					yf = move_r.to.y;
+					promotion_type = move_r.promotion_type;
+				}
+				else
+				{
+					message = "Invalid input: " + move_r.err;
+					continue;
+				}
+			}
+			piece_at_start = game_board.find(position {xi, yi});
+			if (!piece_at_start.has_value())
+			{
+				message = "Invalid move: No piece on " + std::string(1, xi + 'a') +
+						  // NOLINT(bugprone-narrowing-conversions)
 						  std::to_string(
 								  yi + 1);
+				continue;
+			}
+
+			if (piece_at_start.value().get()->color != turn)
+			{
+				message = std::string("Invalid move: It's not ").append(turn == e_white ? "black's" : "white's") +
+						  " turn yet";
+				continue;
+			}
+
+			move = piece_at_start.value().get()->move(game_board, position {xf, yf}, promotion_type);
+			if (move.state != invalid_move)
+			{
+				//Moved successfully
+				for (auto& p: game_board.val)
+				{
+					if (p != nullptr)
+					{
+						if (p->type == e_pawn && p->color == turn && p != piece_at_start.value().get())
+						{
+							p->just_moved_2square = false;
+						}
+					}
+				}
+				if (game_board.is_out_of_moves(INVERT(turn)))
+				{
+					if (move.state == check)
+					{
+						DISPLAY_END_GAME(type_to_char, game_board,
+								std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
+								" won");
+						return 0;
+					}
+					DISPLAY_END_GAME(type_to_char, game_board, "Stalemate, draw");
+					return 0;
+				}
+				//Check for 3-fold repetition
+				int count = 0;
+				for (const auto& a: game_history)
+				{
+					if (a.second != turn)
+					{
+						continue;
+					}
+					auto result = a.first.compare(game_board);
+					if (result == 0)
+					{
+						count++;
+					}
+					if (result == -1)
+					{
+						//game_history.clear();
+						//break;
+					}
+				}
+				if (count >= 2)
+				{
+					DISPLAY_END_GAME(type_to_char, game_board, "Three-fold repetition, draw");
+					return 0;
+				}
+				game_history.emplace_back(game_board.clone(), turn);
+
+				//50 moves
+				if (piece_at_start.value().get()->type == e_pawn || move.state == move_state::capture ||
+					move.state == move_state::check_capture)
+				{
+					move_count = 0;
+				}
+				else
+				{
+					move_count += 0.5;
+					if (move_count >= 49.99)
+					{
+						DISPLAY_END_GAME(type_to_char, game_board, "50 moves without progress, draw");
+					}
+				}
+				turn = INVERT(turn);
+			}
+			else
+			{
+				message = "Invalid move: " + move.message;
 			}
 		}
 	}

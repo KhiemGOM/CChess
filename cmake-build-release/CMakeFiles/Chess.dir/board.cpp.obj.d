@@ -1,4 +1,4 @@
-CMakeFiles/Chess.dir/board.cpp.obj: D:\C++\Chess2\Chess\board.cpp \
+CMakeFiles/Chess.dir/board.cpp.obj: D:\C++\Chess\board.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/functional \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -188,10 +188,15 @@ CMakeFiles/Chess.dir/board.cpp.obj: D:\C++\Chess2\Chess\board.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/execution_defs.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/optional \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/enable_special_members.h \
- D:\C++\Chess2\Chess\board.h D:\C++\Chess2\Chess\pieces.h \
- D:\C++\Chess2\Chess\enum.h D:\C++\Chess2\Chess\move_result.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/algorithm \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ranges_algo.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ranges_util.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/glue_algorithm_defs.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ranges \
+ D:\C++\Chess\board.h D:\C++\Chess\pieces.h D:\C++\Chess\enum.h \
+ D:\C++\Chess\move_result.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
- D:\C++\Chess2\Chess\rook.h D:\C++\Chess2\Chess\queen.h \
- D:\C++\Chess2\Chess\bishop.h D:\C++\Chess2\Chess\knight.h
+ D:\C++\Chess\rook.h D:\C++\Chess\queen.h D:\C++\Chess\bishop.h \
+ D:\C++\Chess\knight.h

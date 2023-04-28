@@ -1,5 +1,5 @@
-CMakeFiles/Chess.dir/move_result.cpp.obj: \
- D:\C++\Chess2\Chess\move_result.cpp D:\C++\Chess2\Chess\move_result.h \
+CMakeFiles/Chess.dir/move_result.cpp.obj: D:\C++\Chess\move_result.cpp \
+ D:\C++\Chess\move_result.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/string \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -149,4 +149,4 @@ CMakeFiles/Chess.dir/move_result.cpp.obj: \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/ostream.tcc \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/istream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/istream.tcc \
- D:\C++\Chess2\Chess\enum.h
+ D:\C++\Chess\enum.h

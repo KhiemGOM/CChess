@@ -53,10 +53,10 @@ RM = "D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\C++\Chess2\Chess
+CMAKE_SOURCE_DIR = D:\C++\Chess
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\C++\Chess2\Chess\cmake-build-relwithdebinfo
+CMAKE_BINARY_DIR = D:\C++\Chess\cmake-build-relwithdebinfo
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/Chess.dir/clean
 CMakeFiles/Chess.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Chess.dir\build.make CMakeFiles/Chess.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Chess.dir\build.make CMakeFiles/Chess.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\C++\Chess2\Chess\cmake-build-relwithdebinfo\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target Chess"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\C++\Chess\cmake-build-relwithdebinfo\CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11 "Built target Chess"
 .PHONY : CMakeFiles/Chess.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Chess.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess2\Chess\cmake-build-relwithdebinfo\CMakeFiles 11
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess\cmake-build-relwithdebinfo\CMakeFiles 11
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Chess.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess2\Chess\cmake-build-relwithdebinfo\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\C++\Chess\cmake-build-relwithdebinfo\CMakeFiles 0
 .PHONY : CMakeFiles/Chess.dir/rule
 
 # Convenience name for target.

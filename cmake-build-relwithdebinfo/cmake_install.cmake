@@ -1,4 +1,4 @@
-# Install script for directory: D:/C++/Chess2/Chess
+# Install script for directory: D:/C++/Chess
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "D:/C++/Chess2/Chess/cmake-build-relwithdebinfo/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/C++/Chess/cmake-build-relwithdebinfo/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

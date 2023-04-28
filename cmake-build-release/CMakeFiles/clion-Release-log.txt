@@ -1,4 +1,4 @@
-"D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" -S D:\C++\Chess2\Chess -B D:\C++\Chess2\Chess\cmake-build-release
+"D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8109.222\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" -S D:\C++\Chess -B D:\C++\Chess\cmake-build-release
 -- The C compiler identification is GNU 11.2.0
 -- The CXX compiler identification is GNU 11.2.0
 -- Detecting C compiler ABI info
@@ -13,4 +13,4 @@
 -- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
--- Build files have been written to: D:/C++/Chess2/Chess/cmake-build-release
+-- Build files have been written to: D:/C++/Chess/cmake-build-release

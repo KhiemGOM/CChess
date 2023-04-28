@@ -4,7 +4,7 @@
 
 #include "rook.h"
 
-bool rook::is_obstruct(board &game_board, position target) const
+bool rook::is_obstruct(const board& game_board, position target) const
 {
     if (target.x == pos.x) {
         int y = pos.y;
@@ -34,13 +34,13 @@ bool rook::is_obstruct(board &game_board, position target) const
     return false;
 }
 
-bool rook::is_valid_move(board &game_board, position target) const
+bool rook::is_valid_move(const board& game_board, position target) const
 {
     //Rook can move only straight
     return !is_obstruct(game_board, target) && (target.x == pos.x || target.y == pos.y);
 }
 
-bool rook::is_valid_capture(board &game_board, position target) const
+bool rook::is_valid_capture(const board& game_board, position target) const
 {
     return is_valid_move(game_board, target);
 }

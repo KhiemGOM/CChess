@@ -5,6 +5,8 @@
 #include <functional>
 #include <memory>
 #include <optional>
+#include <algorithm>
+#include <ranges>
 #include "board.h"
 #include "enum.h"
 #include "rook.h"
@@ -27,7 +29,8 @@ std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find
 	return {};
 }
 
-std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find(type_enum type, enum color_enum color) const
+std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>>
+board::find(type_enum type, enum color_enum color) const
 {
 	for (const std::shared_ptr<pieces>& piece: val)
 	{
@@ -239,7 +242,7 @@ short board::compare(const board& other) const
 	bool diff_pos = false;
 	for (int i = 0; i < NUM_OF_PIECES; i++)
 	{
-		if (val[i].get() != nullptr)
+		if (val[i].get() != nullptr && other.val[i].get() != nullptr)
 		{
 			if (val[i]->pos != other.val[i]->pos)
 			{
@@ -311,4 +314,362 @@ std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(posit
 		}
 	}
 	return {};
+}
+
+bool is_file(char k)
+{
+	return k >= 'a' && k <= 'h';
+}
+
+bool is_rank(char k)
+{
+	return k >= '1' && k <= '8';
+}
+
+type_enum to_type(char k)
+{
+	switch (k)
+	{
+	case 'N':
+		return e_knight;
+	case 'B':
+		return e_bishop;
+	case 'R':
+		return e_rook;
+	case 'Q':
+		return e_queen;
+	case 'K':
+		return e_king;
+	default:
+		return e_empty;
+	}
+}
+
+position to_position(const std::string& input)
+{
+	if (input.size() != 2)
+	{
+		return {-1, -1};
+	}
+	if (!is_file(input[0]) || !is_rank(input[1]))
+	{
+		return {-1, -1};
+	}
+	return {input[0] - 'a', input[1] - '1'};
+}
+
+std::string type_to_string(type_enum type)
+{
+	switch (type)
+	{
+	case e_king:
+		return "king";
+	case e_queen:
+		return "queen";
+	case e_rook:
+		return "rook";
+	case e_knight:
+		return "knight";
+	case e_bishop:
+		return "bishop";
+	case e_pawn:
+		return "pawn";
+	default:
+		return "unknown piece";
+	}
+}
+
+standard_move board::interpret(std::string input, color_enum color) const
+{
+	auto [ret, last] = std::ranges::remove_if(input, [](const char& k)
+	{
+		return k == '+' || k == '#';
+	});
+	input = std::string(input.begin(), ret);
+	if (input == "O-O")
+	{
+		auto king = find(e_king, color)->get();
+		auto rook = find({7, king->pos.y});
+		if (!rook.has_value())
+		{
+			return {move_state::invalid_move, "Cannot castle"};
+		}
+		return {king->pos, rook->get()->pos, move};
+	}
+	if (input == "O-O-O")
+	{
+		auto king = find(e_king, color)->get();
+		auto rook = find({0, king->pos.y});
+		if (!rook.has_value())
+		{
+			return {move_state::invalid_move, "Cannot castle"};
+		}
+		return {king->pos, rook->get()->pos, move};
+	}
+	auto only_pos = to_position(input);
+	if (only_pos.x != -1)
+	{
+		//Only a position is given (pawn move promotion) (e4=Q)
+		type_enum promotion = e_empty;
+		if (input.size() == 4 && input[2] == '=')
+		{
+			promotion = to_type(input.back());
+			if (promotion == e_empty)
+			{
+				return {move_state::invalid_move, "Invalid promotion"};
+			}
+		}
+		//Only a position is given (pawn move) (e4)
+		if (color == e_black)
+		{
+			for (int ind = only_pos.y + 1; ind < 8; ind++)
+			{
+				auto result = find({only_pos.x, ind});
+				if (!result.has_value())
+				{
+					continue;
+				}
+				if (result.value().get()->type != e_pawn)
+				{
+					continue;
+				}
+				return {result.value().get()->pos, only_pos, move_state::move, promotion};
+			}
+			return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
+		}
+
+		for (int ind = only_pos.y - 1; ind >= 0; ind--)
+		{
+			auto result = find({only_pos.x, ind});
+			if (!result.has_value())
+			{
+				continue;
+			}
+			if (result.value().get()->type != e_pawn)
+			{
+				continue;
+			}
+			return {result.value().get()->pos, only_pos, move_state::move};
+		}
+		return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
+	}
+
+	bool is_capture = std::ranges::any_of(input, [](char k)
+	{ return k == 'x'; });
+	if (is_capture)
+	{
+		if (is_file(input[0]))
+		{
+			//Capture with pawn and promote (exd8=Q)
+			type_enum promotion = e_empty;
+			if (input.size() == 6 && input[4] == '=')
+			{
+				promotion = to_type(input.back());
+				if (promotion == e_empty)
+				{
+					return {move_state::invalid_move, "Invalid promotion"};
+				}
+			}
+			//Capture with pawn (exd4)
+			position to = to_position(input.substr(2, 2));
+			if (to.x == -1)
+			{
+				return {move_state::invalid_move, "Invalid position"};
+			}
+			if (color == e_black)
+			{
+				for (int ind = to.y + 1; ind < 8; ind++)
+				{
+					auto result = find({input[0] - 'a', ind});
+					if (!result.has_value())
+					{
+						continue;
+					}
+					if (result.value().get()->type != e_pawn)
+					{
+						continue;
+					}
+					return {result.value().get()->pos, to, move_state::capture, promotion};
+				}
+				return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
+			}
+			for (int ind = to.y - 1; ind >= 0; ind--)
+			{
+				auto result = find({input[0] - 'a', ind});
+				if (!result.has_value())
+				{
+					continue;
+				}
+				if (result.value().get()->type != e_pawn)
+				{
+					continue;
+				}
+				return {result.value().get()->pos, to, move_state::capture, promotion};
+			}
+			return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
+		}
+		//Capture with other piece
+		auto type = to_type(input[0]);
+		if (type == e_empty)
+		{
+			return {invalid_move, "Invalid piece notation"};
+		}
+		if (is_file(input[1]))
+		{
+			//File disambiguation (Ndxe5)
+			auto to = to_position(input.substr(3, 2));
+			if (to.x == -1)
+			{
+				return {move_state::invalid_move, "Invalid position"};
+			}
+			auto file = input[1] - 'a';
+			auto candidates = find_all(type, color, [this, &file, &to](const auto& a)
+			{
+				return a->pos.x == file && a->is_valid_capture(*this, to);
+			});
+			if (candidates.empty())
+			{
+				return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can capture there"};
+			}
+			if (candidates.size() > 1)
+			{
+				return {invalid_move, "Please provide rank disambiguation"};
+			}
+			return {candidates[0].get()->pos, to, capture};
+		}
+		if (is_rank(input[1]))
+		{
+			//Rank disambiguation (N1xe5)
+			auto to = to_position(input.substr(3, 2));
+			if (to.x == -1)
+			{
+				return {move_state::invalid_move, "Invalid position"};
+			}
+			auto rank = input[1] - '1';
+			auto candidates = find_all(type, color, [this, &rank, &to](const auto& a)
+			{
+				return a->pos.y == rank && a->is_valid_capture(*this, to);
+			});
+			if (candidates.empty())
+			{
+				return {invalid_move, "No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can capture there"};
+			}
+			if (candidates.size() > 1)
+			{
+				return {invalid_move, "Please provide file disambiguation"};
+			}
+			return {candidates[0].get()->pos, to, capture};
+		}
+		if (input[1] == 'x')
+		{
+			//No disambiguation (Nxe5)
+			auto to = to_position(input.substr(2, 2));
+			if (to.x == -1)
+			{
+				return {move_state::invalid_move, "Invalid position"};
+			}
+			auto candidates = find_all(type, color, [this, &to](const auto& a)
+			{
+				return a->is_valid_capture(*this, to);
+			});
+			if (candidates.empty())
+			{
+				return {invalid_move, "No " + type_to_string(type) + " on board that can capture there"};
+			}
+			if (candidates.size() > 1)
+			{
+				return {invalid_move, "Please provide disambiguation"};
+			}
+			return {candidates[0].get()->pos, to, capture};
+		}
+		return {invalid_move, "Unknown notation"};
+	}
+	auto type = to_type(input[0]);
+	if (type == e_empty)
+	{
+		return {invalid_move, "Invalid piece notation"};
+	}
+	if (is_file(input[1]) && input.size() == 4)
+	{
+		//File disambiguation (Nde5)
+		auto to = to_position(input.substr(2, 2));
+		if (to.x == -1)
+		{
+			return {move_state::invalid_move, "Invalid position"};
+		}
+		auto file = input[1] - 'a';
+		auto candidates = find_all(type, color, [this, &file, &to](const auto& a)
+		{
+			return a->pos.x == file && a->is_valid_move(*this, to);
+		});
+		if (candidates.empty())
+		{
+			return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can move there"};
+		}
+		if (candidates.size() > 1)
+		{
+			return {invalid_move, "Please provide rank disambiguation"};
+		}
+		return {candidates[0].get()->pos, to, move};
+	}
+	if (is_rank(input[1]) && input.size() == 4)
+	{
+		//Rank disambiguation (N1e5)
+		auto to = to_position(input.substr(2, 2));
+		if (to.x == -1)
+		{
+			return {move_state::invalid_move, "Invalid position"};
+		}
+		auto rank = input[1] - '1';
+		auto candidates = find_all(type, color, [this, &rank, &to](const auto& a)
+		{
+			return a->pos.y == rank && a->is_valid_move(*this, to);
+		});
+		if (candidates.empty())
+		{
+			return {invalid_move, "No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can move there"};
+		}
+		if (candidates.size() > 1)
+		{
+			return {invalid_move, "Please provide file disambiguation"};
+		}
+		return {candidates[0].get()->pos, to, move};
+	}
+
+	//No disambiguation (Ne5)
+	auto to = to_position(input.substr(1, 2));
+	if (to.x == -1)
+	{
+		return {move_state::invalid_move, "Invalid position"};
+	}
+	auto candidates = find_all(type, color, [this, &to](const auto& a)
+	{
+		return a->is_valid_move(*this, to);
+	});
+	if (candidates.empty())
+	{
+		return {invalid_move, "No " + type_to_string(type) + " on board that can move there"};
+	}
+	if (candidates.size() > 1)
+	{
+		return {invalid_move, "Please provide disambiguation"};
+	}
+	return {candidates[0].get()->pos, to, move};
+}
+
+std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>>
+board::find_all(type_enum type, enum color_enum color, auto condi) const
+{
+	std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>> result {};
+	for (const auto& piece: val)
+	{
+		if (piece.get() != nullptr)
+		{
+			if (piece->type == type && piece->color == color && condi(piece))
+			{
+				result.emplace_back(piece);
+			}
+		}
+	}
+	return result;
 }

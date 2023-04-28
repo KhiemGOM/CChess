@@ -1,4 +1,4 @@
-CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess2\Chess\main.cpp \
+CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
@@ -275,7 +275,7 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess2\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/ktmtypes.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc \
- D:\C++\Chess2\Chess\pieces.h D:\C++\Chess2\Chess\board.h \
+ D:\C++\Chess\pieces.h D:\C++\Chess\board.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/vector \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_uninitialized.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_vector.h \
@@ -306,10 +306,9 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess2\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/execution_defs.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/optional \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/enable_special_members.h \
- D:\C++\Chess2\Chess\enum.h D:\C++\Chess2\Chess\move_result.h \
- D:\C++\Chess2\Chess\king.h D:\C++\Chess2\Chess\queen.h \
- D:\C++\Chess2\Chess\pawn.h D:\C++\Chess2\Chess\rook.h \
- D:\C++\Chess2\Chess\bishop.h D:\C++\Chess2\Chess\knight.h \
+ D:\C++\Chess\enum.h D:\C++\Chess\move_result.h D:\C++\Chess\king.h \
+ D:\C++\Chess\queen.h D:\C++\Chess\pawn.h D:\C++\Chess\rook.h \
+ D:\C++\Chess\bishop.h D:\C++\Chess\knight.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/Windows.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stdarg.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/stdarg.h \

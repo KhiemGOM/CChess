@@ -6,7 +6,7 @@
 #include "rook.h"
 #include "bishop.h"
 
-bool queen::is_obstruct(board &game_board, position target) const
+bool queen::is_obstruct(const board& game_board, position target) const
 {
     //Check if any pieces on the way to target excluding the target
     if (target.x == pos.x) {
@@ -55,14 +55,14 @@ bool queen::is_obstruct(board &game_board, position target) const
     return false;
 }
 
-bool queen::is_valid_move(board &game_board, position target) const
+bool queen::is_valid_move(const board& game_board, position target) const
 {
     //Queen can move both diagonally and straight
     return !is_obstruct(game_board, target) &&
            ((pos.x == target.x || pos.y == target.y || abs(pos.x - target.x) == abs(pos.y - target.y)));
 }
 
-bool queen::is_valid_capture(board &game_board, position target) const
+bool queen::is_valid_capture(const board& game_board, position target) const
 {
     return is_valid_move(game_board, target);
 }
