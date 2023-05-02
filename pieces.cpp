@@ -12,7 +12,7 @@ using namespace std::rel_ops;
 
 class board;
 
-color_enum INVERT(color_enum color)
+color_enum Invert(color_enum color)
 {
 	if (color == e_white)
 	{
@@ -93,7 +93,7 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 				}
 			}
 			auto rook_temp = type == e_king ? piece_at_target : shared_ptr_of_this;
-			if (rook_temp->is_check(game_board, INVERT(color)))
+			if (rook_temp->is_check(game_board, Invert(color)))
 			{
 				return move_result {move_state::check};
 			}
@@ -135,14 +135,14 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 					{
 						return move_result {move_state::invalid_move, "Invalid input for promotion"};
 					}
-					if (is_check(game_board, INVERT(color)))
+					if (is_check(game_board, Invert(color)))
 					{
 						return move_result {move_state::check_promotion};
 					}
 					return move_result {move_state::promotion};
 				}
 			}
-			if (is_check(game_board, INVERT(color)))
+			if (is_check(game_board, Invert(color)))
 			{
 				return move_result {move_state::check_capture};
 			}
@@ -167,7 +167,7 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 				{
 					pos = {target.x, 5};
 					target_pawn.value().get() = nullptr;
-					if (is_check(game_board, INVERT(color)))
+					if (is_check(game_board, Invert(color)))
 					{
 						return move_result {move_state::check_capture};
 					}
@@ -184,7 +184,7 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 				{
 					pos = {target.x, 2};
 					target_pawn.value().get() = nullptr;
-					if (is_check(game_board, INVERT(color)))
+					if (is_check(game_board, Invert(color)))
 					{
 						return move_result {move_state::check_capture};
 					}
@@ -227,14 +227,14 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 				{
 					return move_result {move_state::invalid_move, "Invalid input for promotion"};
 				}
-				if (is_check(game_board, INVERT(color)))
+				if (is_check(game_board, Invert(color)))
 				{
 					return move_result {move_state::check_promotion};
 				}
 				return move_result {move_state::promotion};
 			}
 		}
-		if (is_check(game_board, INVERT(color)))
+		if (is_check(game_board, Invert(color)))
 		{
 			return move_result {move_state::check};
 		}
@@ -310,7 +310,7 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 				}
 			}
 			auto rook_temp = type == e_king ? piece_at_target : shared_ptr_of_this;
-			if (rook_temp->is_check(game_board, INVERT(color)))
+			if (rook_temp->is_check(game_board, Invert(color)))
 			{
 				return move_state::check;
 			}
@@ -337,13 +337,13 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			{
 				//Change type
 				game_board.promote(shared_ptr_of_this, target, color, promotion_type);
-				if (is_check(game_board, INVERT(color)))
+				if (is_check(game_board, Invert(color)))
 				{
 					return move_state::check_promotion;
 				}
 				return move_state::promotion;
 			}
-			if (is_check(game_board, INVERT(color)))
+			if (is_check(game_board, Invert(color)))
 			{
 				return move_state::check_capture;
 			}
@@ -363,7 +363,7 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			{
 				if (target_pawn.value().get()->just_moved_2square && target_pawn.value().get()->color == e_black)
 				{
-					if (is_check(game_board, INVERT(color)))
+					if (is_check(game_board, Invert(color)))
 					{
 						return move_state::check_capture;
 					}
@@ -378,7 +378,7 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			{
 				if (target_pawn.value().get()->just_moved_2square && target_pawn.value().get()->color == e_white)
 				{
-					if (is_check(game_board, INVERT(color)))
+					if (is_check(game_board, Invert(color)))
 					{
 						return move_state::check_capture;
 					}
@@ -408,13 +408,13 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 
 			//Change type
 			game_board.promote(shared_ptr_of_this, target, color, promotion_type);
-			if (is_check(game_board, INVERT(color)))
+			if (is_check(game_board, Invert(color)))
 			{
 				return move_state::check_promotion;
 			}
 			return move_state::promotion;
 		}
-		if (is_check(game_board, INVERT(color)))
+		if (is_check(game_board, Invert(color)))
 		{
 			return move_state::check;
 		}

@@ -17,13 +17,13 @@
 #include <wincon.h>
 #include "move_result.h"
 
-int g_c_normal = 7, g_c_white_piece = 15, g_c_black_piece = 0, g_c_white_tile = 112, g_c_black_tile = 160, g_c_normal_tile = 0;
+int C_Normal = 7, C_White_Piece = 15, C_Black_Piece = 0, C_White_Tile = 112, C_Black_Tile = 160, C_Normal_Tile = 0;
 
-void DISPLAY_END_GAME(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason);
+void DisplayEndGame(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason);
 
-void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board);
+void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board);
 
-color_enum INVERT(color_enum color);
+color_enum Invert(color_enum color);
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-avoid-magic-numbers"
@@ -91,15 +91,14 @@ int main()
 			//Display the pieces on the board
 			system("cls");
 			HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(h_console, g_c_normal);
+			SetConsoleTextAttribute(h_console, C_Normal);
 			if (!message.empty())
 			{
 				std::cout << message << '\n';
 				message.clear();
 			}
-			DISPLAY_BOARD(type_to_char, game_board);
-			int xi
-					{}, yi {}, xf {}, yf {};
+			DisplayBoard(type_to_char, game_board);
+			int xi {}, yi {}, xf {}, yf {};
 			if (!standard_notation)
 			{
 				std::cout
@@ -117,7 +116,7 @@ int main()
 			}
 			if (input == "exit")
 			{
-				return 0;
+				std::exit(0);
 			}
 			if (input == "config")
 			{
@@ -132,14 +131,14 @@ int main()
 					SetConsoleTextAttribute(h_console, 0);
 					std::cout << '\n';
 				}
-				SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 				std::cout
 						<< "Input your preferred front color (for colors of text, "
 						   "white piece, black piece in that order): ";
 				std::string input2;
 				getline(std::cin, input2);
 				std::stringstream ss2 {input2};
-				ss2 >> g_c_normal >> g_c_white_piece >> g_c_black_piece;
+				ss2 >> C_Normal >> C_White_Piece >> C_Black_Piece;
 				system("cls");
 				//Input background color
 				for (int i = 0; i < 16; i++)
@@ -151,17 +150,17 @@ int main()
 					SetConsoleTextAttribute(h_console, 0);
 					std::cout << '\n';
 				}
-				SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 				std::cout
 						<< "Input your preferred background color (for background colors of text, "
 						   "white piece, black piece in that order): ";
 				getline(std::cin, input2);
 				ss2.clear();
 				ss2 = std::stringstream {input2};
-				ss2 >> g_c_normal_tile >> g_c_white_tile >> g_c_black_tile;
-				g_c_normal_tile *= 16;
-				g_c_white_tile *= 16;
-				g_c_black_tile *= 16;
+				ss2 >> C_Normal_Tile >> C_White_Tile >> C_Black_Tile;
+				C_Normal_Tile *= 16;
+				C_White_Tile *= 16;
+				C_Black_Tile *= 16;
 				system("cls");
 				continue;
 			}
@@ -226,10 +225,7 @@ int main()
 			piece_at_start = game_board.find(position {xi, yi});
 			if (!piece_at_start.has_value())
 			{
-				message = "Invalid move: No piece on " + std::string(1, xi + 'a') +
-						  // NOLINT(bugprone-narrowing-conversions)
-						  std::to_string(
-								  yi + 1);
+				message = "Invalid move: No piece on " + std::string(1, xi + 'a') + std::to_string(yi + 1); //NOLINT
 				continue;
 			}
 
@@ -254,15 +250,15 @@ int main()
 						}
 					}
 				}
-				if (game_board.is_out_of_moves(INVERT(turn)))
+				if (game_board.is_out_of_moves(Invert(turn)))
 				{
 					if (move.state == check)
 					{
-						DISPLAY_END_GAME(type_to_char, game_board,
+						DisplayEndGame(type_to_char, game_board,
 								std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
 								" won");
 					}
-					DISPLAY_END_GAME(type_to_char, game_board, "Stalemate, draw");
+					DisplayEndGame(type_to_char, game_board, "Stalemate, draw");
 				}
 				//Check for 3-fold repetition
 				int count = 0;
@@ -285,7 +281,7 @@ int main()
 				}
 				if (count >= 2)
 				{
-					DISPLAY_END_GAME(type_to_char, game_board, "Three-fold repetition, draw");
+					DisplayEndGame(type_to_char, game_board, "Three-fold repetition, draw");
 				}
 				game_history.emplace_back(game_board.clone(), turn);
 
@@ -300,16 +296,16 @@ int main()
 					move_count += 0.5;
 					if (move_count >= 49.99)
 					{
-						DISPLAY_END_GAME(type_to_char, game_board, "50 moves without progress, draw");
+						DisplayEndGame(type_to_char, game_board, "50 moves without progress, draw");
 					}
 				}
 
 				//Insufficient material
 				if (game_board.is_insufficient_material())
 				{
-					DISPLAY_END_GAME(type_to_char, game_board, "Insufficient material, draw");
+					DisplayEndGame(type_to_char, game_board, "Insufficient material, draw");
 				}
-				turn = INVERT(turn);
+				turn = Invert(turn);
 			}
 			else
 			{
@@ -321,7 +317,7 @@ int main()
 
 #pragma clang diagnostic pop
 
-void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board)
+void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board)
 {
 	std::array<std::array<std::pair<char, color_enum>, 8>, 8> pos_board {};
 	for (auto& a: game_board.val)
@@ -340,26 +336,26 @@ void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board)
 		i--;
 		for (int jnd = 0; jnd < pos_board[0].size(); jnd++)
 		{
-			int c_tile = (ind % 2 != jnd % 2 ? g_c_black_tile : g_c_white_tile);
+			int c_tile = (ind % 2 != jnd % 2 ? C_Black_Tile : C_White_Tile);
 			auto b = pos_board[ind][jnd];
 			if (b.first == 0)
 			{
 				SetConsoleTextAttribute(h_console, c_tile);
 				std::cout << "  ";
-				SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 			}
 			else
 			{
 				if (b.second == e_white)
 				{
-					SetConsoleTextAttribute(h_console, c_tile + g_c_white_piece);
+					SetConsoleTextAttribute(h_console, c_tile + C_White_Piece);
 				}
 				else
 				{
-					SetConsoleTextAttribute(h_console, c_tile + g_c_black_piece);
+					SetConsoleTextAttribute(h_console, c_tile + C_Black_Piece);
 				}
 				std::cout << b.first << " ";
-				SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 			}
 		}
 		std::cout << '\n';
@@ -367,12 +363,12 @@ void DISPLAY_BOARD(std::map<type_enum, char>& type_to_char, board& game_board)
 	std::cout << "  A B C D E F G H" << '\n';
 }
 
-void DISPLAY_END_GAME(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason)
+void DisplayEndGame(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason)
 {
 	HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(h_console, g_c_normal + g_c_normal_tile);
+	SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 	system("cls");
-	DISPLAY_BOARD(type_to_char, game_board);
+	DisplayBoard(type_to_char, game_board);
 	std::cout << "Game ended: " << reason << '\n';
 	std::exit(0);
 }

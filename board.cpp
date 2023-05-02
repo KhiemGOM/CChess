@@ -92,7 +92,7 @@ board& board::clone() const
 	{
 		if (val[i].get() != nullptr)
 		{
-			auto temp = val[i]->clone();
+			auto *temp = val[i]->clone();
 			b->val[i].reset(temp);
 		}
 	}
@@ -187,8 +187,7 @@ bool board::promote(std::shared_ptr<pieces>& piece, position target, color_enum 
 	std::cout << "Enter the piece you want to promote to (q, r, b, n): ";
 	std::string input2;
 	getline(std::cin, input2);
-	std::shared_ptr<pieces>& piece_to_promote = find(
-			piece->pos).value().get(); // NOLINT(bugprone-unchecked-optional-access)
+	std::shared_ptr<pieces>& piece_to_promote = find(piece->pos).value().get(); //NOLINT
 	if (input2 == "q")
 	{
 		piece_to_promote = std::make_shared<queen>(target, new_color);
