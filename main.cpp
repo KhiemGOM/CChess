@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <map>
 #include <processenv.h>
@@ -29,7 +30,6 @@ color_enum INVERT(color_enum color);
 #pragma ide diagnostic ignored "modernize-use-trailing-return-type"
 #pragma ide diagnostic ignored "cppcoreguidelines-owning-memory"
 
-//TODO: Checking for (Possibly insufficient material)
 int main()
 {
 	std::map<type_enum, char> type_to_char {{e_king,   'K'},
@@ -71,11 +71,11 @@ int main()
 					  std::make_shared<knight>(position {6, 0}, color_enum::e_white),
 					  std::make_shared<knight>(position {1, 7}, color_enum::e_black),
 					  std::make_shared<knight>(position {6, 7}, color_enum::e_black)};
-	//Set the game_board to a simpler position for checkmate testing
+	//Set the game_board to a simpler position for insufficient material
 //	game_board = board {std::make_shared<king>(position {6,5}, e_white),
 //						std::make_shared<king>(position {7,7}, e_black),
-//						std::make_shared<queen>(position {0,6}, e_white),
-//						std::make_shared<queen>(position {3,6}, e_black)};
+//						std::make_shared<bishop>(position {0,6}, e_white),
+//						std::make_shared<bishop>(position {3,6}, e_black)};
 
 	std::vector<std::pair<board, color_enum>> game_history {};
 	color_enum turn = e_white;
@@ -261,10 +261,8 @@ int main()
 						DISPLAY_END_GAME(type_to_char, game_board,
 								std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
 								" won");
-						return 0;
 					}
 					DISPLAY_END_GAME(type_to_char, game_board, "Stalemate, draw");
-					return 0;
 				}
 				//Check for 3-fold repetition
 				int count = 0;
@@ -288,7 +286,6 @@ int main()
 				if (count >= 2)
 				{
 					DISPLAY_END_GAME(type_to_char, game_board, "Three-fold repetition, draw");
-					return 0;
 				}
 				game_history.emplace_back(game_board.clone(), turn);
 
@@ -305,6 +302,12 @@ int main()
 					{
 						DISPLAY_END_GAME(type_to_char, game_board, "50 moves without progress, draw");
 					}
+				}
+
+				//Insufficient material
+				if (game_board.is_insufficient_material())
+				{
+					DISPLAY_END_GAME(type_to_char, game_board, "Insufficient material, draw");
 				}
 				turn = INVERT(turn);
 			}
@@ -371,4 +374,5 @@ void DISPLAY_END_GAME(std::map<type_enum, char>& type_to_char, board& game_board
 	system("cls");
 	DISPLAY_BOARD(type_to_char, game_board);
 	std::cout << "Game ended: " << reason << '\n';
+	std::exit(0);
 }

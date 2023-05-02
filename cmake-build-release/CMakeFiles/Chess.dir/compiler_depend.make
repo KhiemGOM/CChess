@@ -279,6 +279,10 @@ CMakeFiles/Chess.dir/board.cpp.obj: D:/C++/Chess/board.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_vector.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/vector.tcc \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tree.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_map.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_raw_storage_iter.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/align.h \
@@ -798,11 +802,30 @@ CMakeFiles/Chess.dir/knight.cpp.obj: D:/C++/Chess/knight.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/tr1/riemann_zeta.tcc
 
 CMakeFiles/Chess.dir/main.cpp.obj: D:/C++/Chess/main.cpp \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdlib \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/pstl_config.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/limits.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdlib.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/mm_malloc.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/errno.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
+  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iosfwd \
@@ -811,14 +834,7 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:/C++/Chess/main.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/postypes.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cwchar \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_stat64.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
@@ -830,7 +846,6 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:/C++/Chess/main.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/cxxabi_init_exception.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stddef.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/typeinfo \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hash_bytes.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new \
@@ -872,13 +887,9 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:/C++/Chess/main.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr-default.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/pthread.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/errno.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/sys/types.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/process.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_startup.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/limits.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/signal.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/pthread_signal.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/time.h \
@@ -899,13 +910,6 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:/C++/Chess/main.cpp \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_function.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward/binders.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algo.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdlib \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdlib.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/mm_malloc.h \
-  D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/algorithmfwd.h \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/initializer_list \
   D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_heap.h \
@@ -2703,6 +2707,16 @@ D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_
 
 D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/erase_if.h:
 
+D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map:
+
+D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/vaesintrin.h:
+
+D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tree.h:
+
+D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_map.h:
+
+D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h:
+
 D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/algorithm:
 
 D:/C++/Chess/rook.h:
@@ -2750,16 +2764,6 @@ D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_
 D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/tr1/modified_bessel_func.tcc:
 
 D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/tr1/riemann_zeta.tcc:
-
-D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map:
-
-D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/vaesintrin.h:
-
-D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tree.h:
-
-D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_map.h:
-
-D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h:
 
 D:/Programmes\ App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/x86_64-w64-mingw32/include/processenv.h:
 

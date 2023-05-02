@@ -83,6 +83,8 @@ public:
 
     [[nodiscard]] bool is_being_checked_after_move(const board &game_board, position target, color_enum _color) const;
 
+	[[nodiscard]] color_enum square_color() const;
+
 protected:
     virtual bool is_obstruct(const board& game_board, position target) const = 0;
 };

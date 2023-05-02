@@ -3,6 +3,7 @@
 //
 
 #include <functional>
+#include <map>
 #include <memory>
 #include <optional>
 #include <algorithm>
@@ -529,7 +530,8 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can capture there"};
+				return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) +
+									  " file that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
@@ -552,7 +554,8 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can capture there"};
+				return {invalid_move,
+						"No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
@@ -604,7 +607,8 @@ standard_move board::interpret(std::string input, color_enum color) const
 		});
 		if (candidates.empty())
 		{
-			return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can move there"};
+			return {invalid_move,
+					"No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
@@ -627,7 +631,8 @@ standard_move board::interpret(std::string input, color_enum color) const
 		});
 		if (candidates.empty())
 		{
-			return {invalid_move, "No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can move there"};
+			return {invalid_move,
+					"No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
@@ -672,4 +677,80 @@ board::find_all(type_enum type, enum color_enum color, auto condi) const
 		}
 	}
 	return result;
+}
+
+bool board::is_insufficient_material() const
+{
+	std::map<type_enum, int> white_pieces {};
+	std::map<type_enum, int> black_pieces {};
+	for (const auto& piece: val)
+	{
+		if (piece.get() != nullptr)
+		{
+			if (piece->color == e_white)
+			{
+				white_pieces[piece->type]++;
+			}
+			else
+			{
+				black_pieces[piece->type]++;
+			}
+		}
+	}
+	/*
+	 * king versus king
+	 * king and bishop versus king
+	 * king and knight versus king
+	 * king and bishop versus king and bishop with the bishops on the same color.
+	 * (Don't check for king as they always = 1)
+	 * */
+	if (white_pieces.size() == 1 && black_pieces.size() == 1)
+	{
+		return true;
+	}
+	if (white_pieces.size() == 2 && black_pieces.size() == 1)
+	{
+		if (white_pieces[e_bishop] == 1 || white_pieces[e_knight] == 1)
+		{
+			return true;
+		}
+	}
+	if (white_pieces.size() == 1 && black_pieces.size() == 2)
+	{
+		if (black_pieces[e_bishop] == 1 || black_pieces[e_knight] == 1)
+		{
+			return true;
+		}
+	}
+	if (white_pieces.size() == 2 && black_pieces.size() == 2)
+	{
+		if (white_pieces[e_bishop] == 1 && black_pieces[e_bishop] == 1)
+		{
+			auto white_bishop = find_all(e_bishop, e_white, [](const auto& a)
+			{
+				return a->square_color() == e_white;
+			});
+			auto black_bishop = find_all(e_bishop, e_black, [](const auto& a)
+			{
+				return a->square_color() == e_black;
+			});
+			if (white_bishop.size() == 1 && black_bishop.size() == 1)
+			{
+				return true;
+			}
+			white_bishop = find_all(e_bishop, e_black, [](const auto& a)
+			{
+				return a->square_color() == e_white;
+			});
+			black_bishop = find_all(e_bishop, e_white, [](const auto& a)
+			{
+				return a->square_color() == e_black;
+			});
+			if (white_bishop.size() == 1 && black_bishop.size() == 1)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }

@@ -1,9 +1,28 @@
 CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdlib \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/c++config.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/os_defines.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/cpu_defines.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/pstl/pstl_config.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/limits.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdlib.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/mm_malloc.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/errno.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iostream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ostream \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/ios \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/iosfwd \
@@ -12,14 +31,7 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/postypes.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cwchar \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/wchar.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_mac.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_secapi.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/vadefs.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/sdks/_mingw_ddk.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_wstdlib.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/_mingw_stat64.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
@@ -31,7 +43,6 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/cxxabi_init_exception.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/stddef.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/stddef.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/crtdefs.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/typeinfo \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/hash_bytes.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/new \
@@ -73,13 +84,9 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32/bits/gthr-default.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/pthread.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/errno.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/sys/types.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/process.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/corecrt_startup.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/limits.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed/syslimits.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/limits.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/signal.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/pthread_signal.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/time.h \
@@ -100,13 +107,6 @@ CMakeFiles/Chess.dir/main.cpp.obj: D:\C++\Chess\main.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_function.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward/binders.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_algo.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/cstdlib \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/stdlib.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdlib_s.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/stdlib.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/mm_malloc.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/std_abs.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/algorithmfwd.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/initializer_list \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_heap.h \

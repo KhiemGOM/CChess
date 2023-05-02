@@ -66,6 +66,8 @@ public:
 	[[nodiscard]] short compare(const board& other) const;
 
 	[[nodiscard]] standard_move interpret(std::string input, color_enum color) const;
+
+	[[nodiscard]] bool is_insufficient_material () const;
 };
 
 #endif //CHESS_BOARD_H

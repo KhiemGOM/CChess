@@ -85,6 +85,10 @@ CMakeFiles/Chess.dir/board.cpp.obj: D:\C++\Chess\board.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_vector.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_bvector.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/vector.tcc \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/map \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_tree.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_map.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_multimap.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/memory \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/stl_raw_storage_iter.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/align.h \

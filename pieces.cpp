@@ -21,7 +21,7 @@ color_enum INVERT(color_enum color)
 	return e_white;
 }
 
-move_result pieces::move(board &game_board, position target, type_enum promotion_type)
+move_result pieces::move(board& game_board, position target, type_enum promotion_type)
 {
 	if (!is_within_field(target))
 	{
@@ -479,4 +479,9 @@ bool pieces::is_being_checked_after_move(const board& game_board, position targe
 		}
 	}
 	return false;
+}
+
+color_enum pieces::square_color() const
+{
+	return (pos.x % 2 != pos.y % 2) ? e_white : e_black;
 }
