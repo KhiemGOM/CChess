@@ -43,7 +43,7 @@ public:
 
 	[[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> find(position pos);
 
-	[[nodiscard]] std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>> find_all(type_enum type, enum color_enum color, auto condi) const;
+	[[nodiscard]] std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>> find_all(type_enum type, enum color_enum color, auto condition) const;
 
 	[[nodiscard]] std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>>
 	find(type_enum type, enum color_enum color) const;
@@ -51,13 +51,13 @@ public:
 	[[nodiscard]] std::optional<std::reference_wrapper<std::shared_ptr<pieces>>>
 	find(type_enum type, enum color_enum color);
 
-	[[nodiscard]] bool is_out_of_moves(color_enum _color) const;
+	[[nodiscard]] bool is_out_of_moves(color_enum current_color) const;
 
 	[[nodiscard]] board& clone() const;
 
 	[[nodiscard]] bool able_to_castle(const std::shared_ptr<pieces>& king, const std::shared_ptr<pieces>& rook) const;
 
-	[[nodiscard]] bool is_being_checked(color_enum _color);
+	[[nodiscard]] bool is_being_checked(color_enum current_color);
 
 	bool promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color);
 
@@ -68,6 +68,10 @@ public:
 	[[nodiscard]] standard_move interpret(std::string input, color_enum color) const;
 
 	[[nodiscard]] bool is_insufficient_material () const;
+
+	[[nodiscard]] std::string save(color_enum turn, int half_move, int full_move) const;
+
+	std::string load(std::string_view input, int& half_move, int& full_move, color_enum& turn);
 };
 
 #endif //CHESS_BOARD_H

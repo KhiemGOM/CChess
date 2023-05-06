@@ -31,6 +31,7 @@
         <rule entity="LOCAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="" style="SNAKE_CASE" suffix="" />
         <rule entity="GLOBAL_VARIABLE" visibility="ANY" specifier="CONST" prefix="" style="UPPERCASE" suffix="" />
         <rule entity="GLOBAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="" style="UPPER_SNAKE_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FIELD,STRUCT_MEMBER_FIELD" visibility="ANY" specifier="ANY" prefix="" style="SCREAMING_SNAKE_CASE" suffix="" />
       </rules>
     </Objective-C-extensions>
     <Objective-C-extensions>
@@ -45,6 +46,7 @@
         <rule entity="LOCAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="" style="SNAKE_CASE" suffix="" />
         <rule entity="GLOBAL_VARIABLE" visibility="ANY" specifier="CONST" prefix="" style="UPPERCASE" suffix="" />
         <rule entity="GLOBAL_VARIABLE" visibility="ANY" specifier="ANY" prefix="" style="UPPER_SNAKE_CASE" suffix="" />
+        <rule entity="CLASS_MEMBER_FIELD,STRUCT_MEMBER_FIELD" visibility="ANY" specifier="ANY" prefix="" style="SCREAMING_SNAKE_CASE" suffix="" />
       </rules>
     </Objective-C-extensions>
     <codeStyleSettings language="ObjectiveC">
@@ -63,6 +65,7 @@
       <option name="WHILE_BRACE_FORCE" value="3" />
       <option name="FOR_BRACE_FORCE" value="3" />
       <indentOptions>
+        <option name="CONTINUATION_INDENT_SIZE" value="4" />
         <option name="USE_TAB_CHARACTER" value="true" />
         <option name="LABEL_INDENT_SIZE" value="-4" />
       </indentOptions>

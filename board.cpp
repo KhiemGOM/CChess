@@ -2,18 +2,21 @@
 // Created by Admin on 25/03/2023.
 //
 
+#include <ranges>
 #include <functional>
 #include <map>
 #include <memory>
 #include <optional>
 #include <algorithm>
-#include <ranges>
+#include <sstream>
 #include "board.h"
 #include "enum.h"
 #include "rook.h"
 #include "queen.h"
 #include "bishop.h"
 #include "knight.h"
+#include "pawn.h"
+#include "king.h"
 
 std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find(position pos) const
 {
@@ -46,7 +49,7 @@ board::find(type_enum type, enum color_enum color) const
 	return {};
 }
 
-bool board::is_out_of_moves(color_enum _color) const
+bool board::is_out_of_moves(color_enum current_color) const
 {
 	//Check if all pieces are out of moves
 	auto game_board_copy = clone();
@@ -54,7 +57,7 @@ bool board::is_out_of_moves(color_enum _color) const
 	{
 		if (piece.get() != nullptr)
 		{
-			if (piece->color == _color)
+			if (piece->color == current_color)
 			{
 				for (int i = 0; i < 8; i++)
 				{
@@ -92,7 +95,7 @@ board& board::clone() const
 	{
 		if (val[i].get() != nullptr)
 		{
-			auto *temp = val[i]->clone();
+			auto* temp = val[i]->clone();
 			b->val[i].reset(temp);
 		}
 	}
@@ -169,16 +172,12 @@ bool board::able_to_castle(const std::shared_ptr<pieces>& king_o, const std::sha
 }
 
 //Color is the color of the side wanting to be checked
-bool board::is_being_checked(color_enum _color)
+bool board::is_being_checked(color_enum current_color)
 {
-	for (auto& piece: val)
+	return std::ranges::any_of(val, [&current_color, this](const std::shared_ptr<pieces>& piece)
 	{
-		if (piece.get() != nullptr && piece->color != _color && piece->is_check(*this, _color))
-		{
-			return true;
-		}
-	}
-	return false;
+		return piece != nullptr && piece->color != current_color && piece->is_check(*this, current_color);
+	});
 }
 
 //Return true if the input was successful
@@ -215,22 +214,16 @@ void board::promote(std::shared_ptr<pieces>& piece, position target, color_enum 
 {
 	switch (new_type)
 	{
-	case type_enum::e_queen:
-		piece.reset(new queen {target, new_color});
-		break;
-	case type_enum::e_rook:
-		piece.reset(new rook {target, new_color});
-		break;
-	case type_enum::e_bishop:
-		piece.reset(new bishop {target, new_color});
-		break;
-	case type_enum::e_knight:
-		piece.reset(new knight {target, new_color});
-		break;
-	case type_enum::e_empty:
-		promote(piece, target, new_color);
-	default:
-		break;
+		case type_enum::e_queen: piece.reset(new queen {target, new_color});
+			break;
+		case type_enum::e_rook: piece.reset(new rook {target, new_color});
+			break;
+		case type_enum::e_bishop: piece.reset(new bishop {target, new_color});
+			break;
+		case type_enum::e_knight: piece.reset(new knight {target, new_color});
+			break;
+		case type_enum::e_empty: promote(piece, target, new_color);
+		default: break;
 	}
 }
 
@@ -316,66 +309,54 @@ std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> board::find(posit
 	return {};
 }
 
-bool is_file(char k)
+bool IsFile(char k)
 {
 	return k >= 'a' && k <= 'h';
 }
 
-bool is_rank(char k)
+bool IsRank(char k)
 {
 	return k >= '1' && k <= '8';
 }
 
-type_enum to_type(char k)
+type_enum ToType(char k)
 {
 	switch (k)
 	{
-	case 'N':
-		return e_knight;
-	case 'B':
-		return e_bishop;
-	case 'R':
-		return e_rook;
-	case 'Q':
-		return e_queen;
-	case 'K':
-		return e_king;
-	default:
-		return e_empty;
+		case 'N': return e_knight;
+		case 'B': return e_bishop;
+		case 'R': return e_rook;
+		case 'Q': return e_queen;
+		case 'K': return e_king;
+		case 'P': return e_pawn;
+		default: return e_empty;
 	}
 }
 
-position to_position(const std::string& input)
+position ToPosition(const std::string& input)
 {
 	if (input.size() != 2)
 	{
 		return {-1, -1};
 	}
-	if (!is_file(input[0]) || !is_rank(input[1]))
+	if (!IsFile(input[0]) || !IsRank(input[1]))
 	{
 		return {-1, -1};
 	}
 	return {input[0] - 'a', input[1] - '1'};
 }
 
-std::string type_to_string(type_enum type)
+std::string TypeToString(type_enum type)
 {
 	switch (type)
 	{
-	case e_king:
-		return "king";
-	case e_queen:
-		return "queen";
-	case e_rook:
-		return "rook";
-	case e_knight:
-		return "knight";
-	case e_bishop:
-		return "bishop";
-	case e_pawn:
-		return "pawn";
-	default:
-		return "unknown piece";
+		case e_king: return "king";
+		case e_queen: return "queen";
+		case e_rook: return "rook";
+		case e_knight: return "knight";
+		case e_bishop: return "bishop";
+		case e_pawn: return "pawn";
+		default: return "unknown piece";
 	}
 }
 
@@ -388,7 +369,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 	input = std::string(input.begin(), ret);
 	if (input == "O-O")
 	{
-		auto king = find(e_king, color)->get();
+		auto king = find(e_king, color)->get(); // NOLINT(bugprone-unchecked-optional-access)
 		auto rook = find({7, king->pos.y});
 		if (!rook.has_value())
 		{
@@ -398,7 +379,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 	}
 	if (input == "O-O-O")
 	{
-		auto king = find(e_king, color)->get();
+		auto king = find(e_king, color)->get(); // NOLINT(bugprone-unchecked-optional-access)
 		auto rook = find({0, king->pos.y});
 		if (!rook.has_value())
 		{
@@ -406,14 +387,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 		}
 		return {king->pos, rook->get()->pos, move};
 	}
-	auto only_pos = to_position(input);
+	auto only_pos = ToPosition(input);
 	if (only_pos.x != -1)
 	{
 		//Only a position is given (pawn move promotion) (e4=Q)
 		type_enum promotion = e_empty;
 		if (input.size() == 4 && input[2] == '=')
 		{
-			promotion = to_type(input.back());
+			promotion = ToType(input.back());
 			if (promotion == e_empty)
 			{
 				return {move_state::invalid_move, "Invalid promotion"};
@@ -458,20 +439,20 @@ standard_move board::interpret(std::string input, color_enum color) const
 	{ return k == 'x'; });
 	if (is_capture)
 	{
-		if (is_file(input[0]))
+		if (IsFile(input[0]))
 		{
 			//Capture with pawn and promote (exd8=Q)
 			type_enum promotion = e_empty;
 			if (input.size() == 6 && input[4] == '=')
 			{
-				promotion = to_type(input.back());
+				promotion = ToType(input.back());
 				if (promotion == e_empty)
 				{
 					return {move_state::invalid_move, "Invalid promotion"};
 				}
 			}
 			//Capture with pawn (exd4)
-			position to = to_position(input.substr(2, 2));
+			position to = ToPosition(input.substr(2, 2));
 			if (to.x == -1)
 			{
 				return {move_state::invalid_move, "Invalid position"};
@@ -509,15 +490,15 @@ standard_move board::interpret(std::string input, color_enum color) const
 			return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
 		}
 		//Capture with other piece
-		auto type = to_type(input[0]);
+		auto type = ToType(input[0]);
 		if (type == e_empty)
 		{
 			return {invalid_move, "Invalid piece notation"};
 		}
-		if (is_file(input[1]))
+		if (IsFile(input[1]))
 		{
 			//File disambiguation (Ndxe5)
-			auto to = to_position(input.substr(3, 2));
+			auto to = ToPosition(input.substr(3, 2));
 			if (to.x == -1)
 			{
 				return {move_state::invalid_move, "Invalid position"};
@@ -529,7 +510,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + type_to_string(type) + " on " + std::string(1, input[1]) +
+				return {invalid_move, "No " + TypeToString(type) + " on " + std::string(1, input[1]) +
 									  " file that can capture there"};
 			}
 			if (candidates.size() > 1)
@@ -538,10 +519,10 @@ standard_move board::interpret(std::string input, color_enum color) const
 			}
 			return {candidates[0].get()->pos, to, capture};
 		}
-		if (is_rank(input[1]))
+		if (IsRank(input[1]))
 		{
 			//Rank disambiguation (N1xe5)
-			auto to = to_position(input.substr(3, 2));
+			auto to = ToPosition(input.substr(3, 2));
 			if (to.x == -1)
 			{
 				return {move_state::invalid_move, "Invalid position"};
@@ -554,7 +535,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			if (candidates.empty())
 			{
 				return {invalid_move,
-						"No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can capture there"};
+						"No " + TypeToString(type) + " on " + std::to_string(rank) + " rank that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
@@ -565,7 +546,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 		if (input[1] == 'x')
 		{
 			//No disambiguation (Nxe5)
-			auto to = to_position(input.substr(2, 2));
+			auto to = ToPosition(input.substr(2, 2));
 			if (to.x == -1)
 			{
 				return {move_state::invalid_move, "Invalid position"};
@@ -576,7 +557,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + type_to_string(type) + " on board that can capture there"};
+				return {invalid_move, "No " + TypeToString(type) + " on board that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
@@ -586,15 +567,15 @@ standard_move board::interpret(std::string input, color_enum color) const
 		}
 		return {invalid_move, "Unknown notation"};
 	}
-	auto type = to_type(input[0]);
+	auto type = ToType(input[0]);
 	if (type == e_empty)
 	{
 		return {invalid_move, "Invalid piece notation"};
 	}
-	if (is_file(input[1]) && input.size() == 4)
+	if (IsFile(input[1]) && input.size() == 4)
 	{
 		//File disambiguation (Nde5)
-		auto to = to_position(input.substr(2, 2));
+		auto to = ToPosition(input.substr(2, 2));
 		if (to.x == -1)
 		{
 			return {move_state::invalid_move, "Invalid position"};
@@ -607,7 +588,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 		if (candidates.empty())
 		{
 			return {invalid_move,
-					"No " + type_to_string(type) + " on " + std::string(1, input[1]) + " file that can move there"};
+					"No " + TypeToString(type) + " on " + std::string(1, input[1]) + " file that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
@@ -615,10 +596,10 @@ standard_move board::interpret(std::string input, color_enum color) const
 		}
 		return {candidates[0].get()->pos, to, move};
 	}
-	if (is_rank(input[1]) && input.size() == 4)
+	if (IsRank(input[1]) && input.size() == 4)
 	{
 		//Rank disambiguation (N1e5)
-		auto to = to_position(input.substr(2, 2));
+		auto to = ToPosition(input.substr(2, 2));
 		if (to.x == -1)
 		{
 			return {move_state::invalid_move, "Invalid position"};
@@ -631,7 +612,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 		if (candidates.empty())
 		{
 			return {invalid_move,
-					"No " + type_to_string(type) + " on " + std::to_string(rank) + " rank that can move there"};
+					"No " + TypeToString(type) + " on " + std::to_string(rank) + " rank that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
@@ -641,7 +622,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 	}
 
 	//No disambiguation (Ne5)
-	auto to = to_position(input.substr(1, 2));
+	auto to = ToPosition(input.substr(1, 2));
 	if (to.x == -1)
 	{
 		return {move_state::invalid_move, "Invalid position"};
@@ -652,7 +633,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 	});
 	if (candidates.empty())
 	{
-		return {invalid_move, "No " + type_to_string(type) + " on board that can move there"};
+		return {invalid_move, "No " + TypeToString(type) + " on board that can move there"};
 	}
 	if (candidates.size() > 1)
 	{
@@ -662,14 +643,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 }
 
 std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>>
-board::find_all(type_enum type, enum color_enum color, auto condi) const
+board::find_all(type_enum type, enum color_enum color, auto condition) const
 {
 	std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>> result {};
 	for (const auto& piece: val)
 	{
 		if (piece.get() != nullptr)
 		{
-			if (piece->type == type && piece->color == color && condi(piece))
+			if (piece->type == type && piece->color == color && condition(piece))
 			{
 				result.emplace_back(piece);
 			}
@@ -696,13 +677,6 @@ bool board::is_insufficient_material() const
 			}
 		}
 	}
-	/*
-	 * king versus king
-	 * king and bishop versus king
-	 * king and knight versus king
-	 * king and bishop versus king and bishop with the bishops on the same color.
-	 * (Don't check for king as they always = 1)
-	 * */
 	if (white_pieces.size() == 1 && black_pieces.size() == 1)
 	{
 		return true;
@@ -752,4 +726,408 @@ bool board::is_insufficient_material() const
 		}
 	}
 	return false;
+}
+
+char type_to_char_FEN(type_enum type, color_enum color)
+{
+	char k = '?';
+	switch (type)
+	{
+		case e_pawn: k = 'p';
+			break;
+		case e_king: k = 'k';
+			break;
+		case e_bishop: k = 'b';
+			break;
+		case e_rook: k = 'r';
+			break;
+		case e_knight: k = 'n';
+			break;
+		case e_queen: k = 'q';
+			break;
+		default: k = '?';
+	}
+	if (color == e_white)
+	{
+		k = toupper(k); // NOLINT(bugprone-narrowing-conversions)
+	}
+	return k;
+}
+
+std::string board::save(color_enum turn, int half_move, int full_move) const
+{
+	//Generate FEN string
+	std::array<std::array<std::pair<type_enum, color_enum>, 8>, 8> pos_board {};
+	for (const auto& a: val)
+	{
+		if (a.get() != nullptr)
+		{
+			pos_board[a->pos.x][a->pos.y] = std::make_pair(a->type, a->color);
+		}
+	}
+	int accumulative = 0;
+	std::string result;
+	for (int y = 7; y >= 0; y--)
+	{
+		for (int x = 0; x < 8; x++)
+		{
+			auto piece = pos_board[x][y];
+			if (piece.first == e_empty)
+			{
+				accumulative++;
+			}
+			else
+			{
+				if (accumulative != 0)
+				{
+					result += std::to_string(accumulative);
+					accumulative = 0;
+				}
+				result += type_to_char_FEN(piece.first, piece.second);
+			}
+		}
+		if (accumulative != 0)
+		{
+			result += std::to_string(accumulative);
+			accumulative = 0;
+		}
+		if (y != 0)
+		{
+			result += '/';
+		}
+	}
+	if (accumulative != 0)
+	{
+		result += std::to_string(accumulative);
+		accumulative = 0;
+	}
+	result += (turn == e_white ? " w " : " b ");
+	//Castling availability
+	bool white_k = !find(e_king, e_white)->get()->has_moved;
+	bool black_k = !find(e_king, e_black)->get()->has_moved;
+	bool white_r_ks = !find_all(e_rook, e_white, [&](auto a)
+	{
+		return a->pos.x == 7 && a->pos.y == 0 && (!a->has_moved);
+	}).empty();
+	bool white_r_qs = !find_all(e_rook, e_white, [&](auto a)
+	{
+		return a->pos.x == 0 && a->pos.y == 0 && (!a->has_moved);
+	}).empty();
+	bool black_r_ks = !find_all(e_rook, e_black, [&](auto a)
+	{
+		return a->pos.x == 7 && a->pos.y == 7 && (!a->has_moved);
+	}).empty();
+	bool black_r_qs = !find_all(e_rook, e_black, [&](auto a)
+	{
+		return a->pos.x == 0 && a->pos.y == 7 && (!a->has_moved);
+	}).empty();
+	std::string temp {};
+	if (white_k)
+	{
+		if (white_r_ks)
+		{
+			temp += 'K';
+		}
+		if (white_r_qs)
+		{
+			temp += 'Q';
+		}
+	}
+	if (black_k)
+	{
+		if (black_r_ks)
+		{
+			temp += 'k';
+		}
+		if (black_r_qs)
+		{
+			temp += 'q';
+		}
+	}
+	if (temp.empty())
+	{
+		temp = "-";
+	}
+	result += temp;
+	result += ' ';
+
+	//En passant capability
+	auto en_passant = find_all(e_pawn, static_cast<color_enum>(!turn), [&](auto a)
+	{
+		return a->just_moved_2square;
+	});
+	if (en_passant.empty())
+	{
+		result += '-';
+	}
+	else
+	{
+		auto pos = en_passant[0].get()->pos;
+		pos.y += (turn == e_white ? 1 : -1);
+		result += static_cast<char>(pos.x + 'a');
+		result += static_cast<char>(pos.y + '1');
+	}
+	result += ' ';
+	result += std::to_string(half_move) + ' ' + std::to_string(full_move);
+//	std::cout << result;
+//	std::cin >> result;
+	return {result};
+}
+
+std::string board::load(std::string_view input, int& half_move, int& full_move, color_enum& turn)
+{
+	//Load FEN string
+	/*
+	 * Update these variable:
+	 * board
+	 * half_move
+	 * full_move
+	 * turn
+	*/
+	std::stringstream ss {(std::string)input};
+	std::string pos {}, castling {}, en_passant {};
+	char turn_k = 0;
+	ss >> pos >> turn_k >> castling >> en_passant >> half_move >> full_move;
+	turn = (turn_k == 'w' ? e_white : e_black);
+	position ep_pos = ToPosition(en_passant);
+	if (en_passant == "-")
+	{
+		ep_pos = {-1, -1};
+	}
+	else if (ep_pos.x == -1 || ep_pos.y == -1)
+	{
+		return "Invalid en passant position";
+	}
+	ep_pos.y += (turn == e_white ? -1 : 1);
+	//Bool to check validity of position
+	bool ep_pos_valid = false, w_king = false, b_king = false,
+	//Bool to check if both king and rook are present for castle availability
+	w_king_c = false, b_king_c = false,
+		w_rook_ks = false, w_rook_qs = false, b_rook_ks = false, b_rook_qs = false,
+	//Bool for castling
+	castle_wks = false, castle_wqs = false, castle_bks = false, castle_bqs = false;
+	std::map<std::tuple<type_enum, color_enum>, int> piece_count;
+	for (const char& k: castling)
+	{
+		if (k == 'K')
+		{
+			castle_wks = true;
+		}
+		else if (k == 'Q')
+		{
+			castle_wqs = true;
+		}
+		else if (k == 'k')
+		{
+			castle_bks = true;
+		}
+		else if (k == 'q')
+		{
+			castle_bqs = true;
+		}
+		else
+		{
+			return "Invalid castling availability notation";
+		}
+	}
+	bool en_passant_present = (en_passant != "-");
+	//Update board
+	int x = 0, y = 7, ind = 0;
+	for (const char& k: pos)
+	{
+		if (k == '/')
+		{
+			x = 0;
+			y--;
+		}
+		else if (isdigit(k))
+		{
+			x += k - '0';
+		}
+		else
+		{
+			color_enum color = (std::isupper(k) ? e_white : e_black);
+			type_enum type = ToType(std::toupper(k)); //NOLINT
+			switch (type)
+			{
+				case e_pawn: val[ind] = std::make_shared<pawn>(position {x, y}, color);
+					piece_count[std::make_pair(e_pawn, color)]++;
+					break;
+				case e_knight: val[ind] = std::make_shared<knight>(position {x, y}, color);
+					piece_count[std::make_pair(e_knight, color)]++;
+					break;
+				case e_bishop: val[ind] = std::make_shared<bishop>(position {x, y}, color);
+					piece_count[std::make_pair(e_bishop, color)]++;
+					break;
+				case e_rook: val[ind] = std::make_shared<rook>(position {x, y}, color);
+					piece_count[std::make_pair(e_rook, color)]++;
+					break;
+				case e_queen: val[ind] = std::make_shared<queen>(position {x, y}, color);
+					piece_count[std::make_pair(e_queen, color)]++;
+					break;
+				case e_king: val[ind] = std::make_shared<king>(position {x, y}, color);
+					piece_count[std::make_pair(e_king, color)]++;
+					break;
+				default: return "Invalid type notation";
+			}
+			//Check validity of position
+			if (type == e_king)
+			{
+				if (color == e_white && (x != 4 || y != 0) && (castle_wks || castle_wqs))
+				{
+					return "Conflict between white king position and castling availability";
+				}
+				if (color == e_black && (x != 4 || y != 7) && (castle_bks || castle_bqs))
+				{
+					return "Conflict between black king position and castling availability";
+				}
+				if (color == e_white)
+				{
+					w_king = true;
+					if (((!castle_wks) && (!castle_wqs)) || x != 4 || y != 0)
+					{
+						val[ind]->has_moved = true;
+					}
+					else
+					{
+						w_king_c = true;
+					}
+				}
+				else
+				{
+					b_king = true;
+					if (((!castle_bks) && (!castle_bqs)) || x != 4 || y != 7)
+					{
+						val[ind]->has_moved = true;
+					}
+					else
+					{
+						b_king_c = true;
+					}
+				}
+			}
+			if (type == e_rook)
+			{
+				if (color == e_white)
+				{
+/*					if (x != 0 && y != 0 && castle_wqs)
+//					{
+//						return "Conflict between white queen-side rook position and castling availability";
+//					}
+//					if (x != 7 && y != 0 && castle_wks)
+//					{
+//						return "Conflict between white king-side rook position and castling availability";
+//					}
+//TODO Check for conflict between rook position and castling availability */
+					if ((x == 0 && y == 0 && !castle_wqs) || (x == 7 && y == 0 && !castle_wks) ||
+						((x != 0 || y != 0) && (x != 7 || y != 0)))
+					{
+						val[ind]->has_moved = true;
+					}
+					if (x == 0 && y == 0 && castle_wqs)
+					{
+						w_rook_qs = true;
+					}
+					if (x == 7 && y == 0 && castle_wks)
+					{
+						w_rook_ks = true;
+					}
+				}
+				else
+				{
+/*					if (x != 0 && y != 7 && castle_bqs)
+//					{
+//						return "Conflict between black queen-side rook position and castling availability";
+//					}
+//					if (x != 7 && y != 7 && castle_bks)
+//					{
+//						return "Conflict between black king-side rook position and castling availability";
+//					} */
+					if ((x == 0 && y == 7 && !castle_bqs) || (x == 7 && y == 7 && !castle_bks) ||
+						((x != 0 || y != 7) && (x != 7 || y != 7)))
+					{
+						val[ind]->has_moved = true;
+					}
+					if (x == 0 && y == 7 && castle_bqs)
+					{
+						b_rook_qs = true;
+					}
+					if (x == 7 && y == 7 && castle_bks)
+					{
+						b_rook_ks = true;
+					}
+				}
+			}
+			//Check en passant
+			if (type == e_pawn)
+			{
+				if (en_passant_present && (x == ep_pos.x) && (y == ep_pos.y))
+				{
+					val[ind]->just_moved_2square = true;
+					ep_pos_valid = true;
+				}
+			}
+			ind++;
+			x++;
+		}
+	}
+	if (ep_pos_valid != en_passant_present)
+	{
+		return "No pawn on the provided en passant square";
+	}
+	if ((castle_wks || castle_wqs) != w_king_c)
+	{
+		return "Conflict between white king position and castling availability";
+	}
+	if ((castle_bks || castle_bqs) != b_king_c)
+	{
+		return "Conflict between black king position and castling availability";
+	}
+	if (castle_wks != w_rook_ks)
+	{
+		return "Conflict between white king-side rook position and castling availability";
+	}
+	if (castle_wqs != w_rook_qs)
+	{
+		return "Conflict between white queen-side rook position and castling availability";
+	}
+	if (castle_bks != b_rook_ks)
+	{
+		return "Conflict between black king-side rook position and castling availability";
+	}
+	if (castle_bqs != b_rook_qs)
+	{
+		return "Conflict between black queen-side rook position and castling availability";
+	}
+
+	//Check piece number
+	for (int c = 0; c < 2; c++)
+	{
+		std::string color_str = (c == 0) ? "white" : "black";
+		if (piece_count[std::make_pair(e_pawn, (color_enum)c)] > 8)
+		{
+			return "Invalid number of " + color_str + " pawns";
+		}
+		if (piece_count[std::make_pair(e_knight, (color_enum)c)] > 2)
+		{
+			return "Invalid number of " + color_str + " knights";
+		}
+		if (piece_count[std::make_pair(e_bishop, (color_enum)c)] > 2)
+		{
+			return "Invalid number of " + color_str + " bishops";
+		}
+		if (piece_count[std::make_pair(e_rook, (color_enum)c)] > 2)
+		{
+			return "Invalid number of " + color_str + " rooks";
+		}
+		if (piece_count[std::make_pair(e_queen, (color_enum)c)] > 1)
+		{
+			return "Invalid number of " + color_str + " queens";
+		}
+		if (piece_count[std::make_pair(e_king, (color_enum)c)] > 1)
+		{
+			return "Invalid number of " + color_str + " kings";
+		}
+	}
+	return {};
 }

@@ -34,38 +34,40 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 
 	//There's piece at target
 	std::shared_ptr<pieces> shared_ptr_of_this = game_board.find( // NOLINT(bugprone-unchecked-optional-access)
-			{pos.x, pos.y}).value().get();
+		{pos.x, pos.y}).value().get();
 	auto find_result = game_board.find(target);
 	if (find_result.has_value())
 	{
 		//Check for castle
 		std::shared_ptr<pieces>& piece_at_target = find_result.value().get();
 		if (((type == e_king && piece_at_target->type == e_rook) ||
-			 (type == e_rook && piece_at_target->type == e_king)) && color == piece_at_target->color && !has_moved &&
-			!piece_at_target->has_moved)
+			 (type == e_rook && piece_at_target->type == e_king)) && color == piece_at_target->color)
 		{
+			if (has_moved || piece_at_target->has_moved)
+			{
+				return {move_state::invalid_move, "King or rook has already moved"};
+			}
 			//King side
 			if (pos.x == 7 || piece_at_target->pos.x == 7)
 			{
 				switch (type)
 				{
-				case e_king:
-					if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
-					{
-						return {move_state::invalid_move, "Isn't able to castle"};
-					}
-					pos.x = 5;
-					piece_at_target->pos.x = 6;
-					break;
-				case e_rook:
-					if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
-					{
-						return {move_state::invalid_move, "Isn't able to castle"};
-					}
-					pos.x = 6;
-					piece_at_target->pos.x = 5;
-				default:
-					break;
+					case e_king:
+						if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
+						{
+							return {move_state::invalid_move, "Isn't able to castle"};
+						}
+						pos.x = 6;
+						piece_at_target->pos.x = 5;
+						break;
+					case e_rook:
+						if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
+						{
+							return {move_state::invalid_move, "Isn't able to castle"};
+						}
+						pos.x = 5;
+						piece_at_target->pos.x = 6;
+					default: break;
 				}
 			}
 			//Queen side
@@ -73,23 +75,22 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 			{
 				switch (type)
 				{
-				case e_king:
-					if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
-					{
-						return {move_state::invalid_move, "Isn't able to castle"};
-					}
-					pos.x = 2;
-					piece_at_target->pos.x = 3;
-					break;
-				case e_rook:
-					if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
-					{
-						return {move_state::invalid_move, "Isn't able to castle"};
-					}
-					pos.x = 3;
-					piece_at_target->pos.x = 2;
-				default:
-					break;
+					case e_king:
+						if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
+						{
+							return {move_state::invalid_move, "Isn't able to castle"};
+						}
+						pos.x = 2;
+						piece_at_target->pos.x = 3;
+						break;
+					case e_rook:
+						if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
+						{
+							return {move_state::invalid_move, "Isn't able to castle"};
+						}
+						pos.x = 3;
+						piece_at_target->pos.x = 2;
+					default: break;
 				}
 			}
 			auto rook_temp = type == e_king ? piece_at_target : shared_ptr_of_this;
@@ -150,8 +151,8 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 		}
 		return {move_state::invalid_move,
 				"Your " + move_result::type_to_string(this->type) + " can't capture the piece at " +
-				std::string(1, target.x + 'a') +
-				std::to_string(target.y + 1)}; // NOLINT(bugprone-narrowing-conversions)
+				std::string(1, target.x + 'a') + // NOLINT(bugprone-narrowing-conversions)
+				std::to_string(target.y + 1)};
 	}
 
 	//No piece at target
@@ -241,7 +242,7 @@ move_result pieces::move(board& game_board, position target, type_enum promotion
 		return move_result {move_state::move};
 	}
 	return {move_state::invalid_move,
-			"Your " + move_result::type_to_string(this->type) + " can't move to " + std::string(1, target.x + 'a') +
+			"Your " + move_result::type_to_string(this->type) + " can't move to " + std::string(1, target.x + 'a') + // NOLINT(bugprone-narrowing-conversions)
 			// NOLINT(bugprone-narrowing-conversions)
 			std::to_string(target.y + 1)};
 }
@@ -259,7 +260,7 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 
 	//There's piece at target
 	std::shared_ptr<pieces> shared_ptr_of_this = game_board.find( // NOLINT(bugprone-unchecked-optional-access)
-			{pos.x, pos.y}).value().get(); // NOLINT(bugprone-unchecked-optional-access)
+		{pos.x, pos.y}).value().get(); // NOLINT(bugprone-unchecked-optional-access)
 	const auto find_result = game_board.find(target);
 	if (find_result.has_value())
 	{
@@ -274,19 +275,18 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			{
 				switch (type)
 				{
-				case e_king:
-					if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
-					{
-						return move_state::invalid_move;
-					}
-					break;
-				case e_rook:
-					if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
-					{
-						return move_state::invalid_move;
-					}
-				default:
-					break;
+					case e_king:
+						if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
+						{
+							return move_state::invalid_move;
+						}
+						break;
+					case e_rook:
+						if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
+						{
+							return move_state::invalid_move;
+						}
+					default: break;
 				}
 			}
 			//Queen side
@@ -294,19 +294,18 @@ move_state pieces::try_to_move(board& game_board, position target, type_enum pro
 			{
 				switch (type)
 				{
-				case e_king:
-					if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
-					{
-						return move_state::invalid_move;
-					}
-					break;
-				case e_rook:
-					if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
-					{
-						return move_state::invalid_move;
-					}
-				default:
-					break;
+					case e_king:
+						if (!game_board.able_to_castle(shared_ptr_of_this, piece_at_target))
+						{
+							return move_state::invalid_move;
+						}
+						break;
+					case e_rook:
+						if (!game_board.able_to_castle(piece_at_target, shared_ptr_of_this))
+						{
+							return move_state::invalid_move;
+						}
+					default: break;
 				}
 			}
 			auto rook_temp = type == e_king ? piece_at_target : shared_ptr_of_this;
@@ -431,9 +430,9 @@ bool pieces::is_within_field(position pos)
 /**
  * The color is for the opposite color (color of the king)
  **/
-bool pieces::is_check(board& game_board, color_enum _color) const
+bool pieces::is_check(board& game_board, color_enum current_color) const
 {
-	auto king_temp = game_board.find(e_king, _color);
+	auto king_temp = game_board.find(e_king, current_color);
 	if (!king_temp.has_value())
 	{
 		return false;
@@ -444,7 +443,7 @@ bool pieces::is_check(board& game_board, color_enum _color) const
 /**
  * The color is for the color of side wanting to check if their move results in a check
  **/
-bool pieces::is_being_checked_after_move(const board& game_board, position target, color_enum _color) const
+bool pieces::is_being_checked_after_move(const board& game_board, position target, color_enum current_color) const
 {
 	//Check if any pieces of opposite color is checking the king
 	//after the move on a copied version of the game board
@@ -469,9 +468,9 @@ bool pieces::is_being_checked_after_move(const board& game_board, position targe
 	{
 		if (piece.get() != nullptr)
 		{
-			if (piece->color != _color)
+			if (piece->color != current_color)
 			{
-				if (piece->is_check(game_board_copy, _color))
+				if (piece->is_check(game_board_copy, current_color))
 				{
 					return true;
 				}

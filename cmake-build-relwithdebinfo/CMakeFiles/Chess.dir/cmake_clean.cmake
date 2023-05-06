@@ -9,6 +9,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/Chess.dir/knight.cpp.obj.d"
   "CMakeFiles/Chess.dir/main.cpp.obj"
   "CMakeFiles/Chess.dir/main.cpp.obj.d"
+  "CMakeFiles/Chess.dir/menu.cpp.obj"
+  "CMakeFiles/Chess.dir/menu.cpp.obj.d"
   "CMakeFiles/Chess.dir/move_result.cpp.obj"
   "CMakeFiles/Chess.dir/move_result.cpp.obj.d"
   "CMakeFiles/Chess.dir/pawn.cpp.obj"

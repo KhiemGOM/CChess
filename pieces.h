@@ -77,11 +77,11 @@ public:
 
     move_state try_to_move(board &game_board, position target, type_enum promotion_type) const;
 
-    bool is_check(board &game_board, color_enum _color) const;
+    bool is_check(board &game_board, color_enum current_color) const;
 
     virtual void move_cleanup() = 0;
 
-    [[nodiscard]] bool is_being_checked_after_move(const board &game_board, position target, color_enum _color) const;
+    [[nodiscard]] bool is_being_checked_after_move(const board &game_board, position target, color_enum current_color) const;
 
 	[[nodiscard]] color_enum square_color() const;
 

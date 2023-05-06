@@ -15,7 +15,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/addr2line.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/addr2line.exe"
 		},
 		{
 			"name" : "CMAKE_AR",
@@ -31,7 +31,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/ar.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/ar.exe"
 		},
 		{
 			"name" : "CMAKE_BUILD_TYPE",
@@ -43,7 +43,7 @@
 				}
 			],
 			"type" : "STRING",
-			"value" : "RelWithDebInfo"
+			"value" : "Release"
 		},
 		{
 			"name" : "CMAKE_CACHEFILE_DIR",
@@ -55,7 +55,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "d:/C++/Chess/cmake-build-relwithdebinfo"
+			"value" : "d:/C++/Chess/cmake-build-release"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -151,7 +151,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/bin/cmake.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/cmake.exe"
 		},
 		{
 			"name" : "CMAKE_CPACK_COMMAND",
@@ -163,7 +163,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/bin/cpack.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/cpack.exe"
 		},
 		{
 			"name" : "CMAKE_CTEST_COMMAND",
@@ -175,7 +175,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/bin/ctest.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/bin/ctest.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER",
@@ -191,7 +191,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/g++.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/g++.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_AR",
@@ -207,7 +207,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/gcc-ar.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_COMPILER_RANLIB",
@@ -223,7 +223,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/gcc-ranlib.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_CXX_FLAGS",
@@ -335,7 +335,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/gcc.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/gcc.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_AR",
@@ -351,7 +351,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/gcc-ar.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/gcc-ar.exe"
 		},
 		{
 			"name" : "CMAKE_C_COMPILER_RANLIB",
@@ -367,7 +367,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/gcc-ranlib.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/gcc-ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_C_FLAGS",
@@ -479,7 +479,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/dlltool.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/dlltool.exe"
 		},
 		{
 			"name" : "CMAKE_EXECUTABLE_FORMAT",
@@ -607,7 +607,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
 		},
 		{
 			"name" : "CMAKE_EXTRA_GENERATOR_C_SYSTEM_DEFINED_MACROS",
@@ -631,7 +631,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed;D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
 		},
 		{
 			"name" : "CMAKE_FIND_PACKAGE_REDIRECTS_DIR",
@@ -643,7 +643,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/C++/Chess/cmake-build-relwithdebinfo/CMakeFiles/pkgRedirects"
+			"value" : "D:/C++/Chess/cmake-build-release/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -743,7 +743,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/ld.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/ld.exe"
 		},
 		{
 			"name" : "CMAKE_MAKE_PROGRAM",
@@ -759,7 +759,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe"
+			"value" : "D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe"
 		},
 		{
 			"name" : "CMAKE_MODULE_LINKER_FLAGS",
@@ -855,7 +855,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/nm.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/nm.exe"
 		},
 		{
 			"name" : "CMAKE_NUMBER_OF_MAKEFILES",
@@ -883,7 +883,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/objcopy.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/objcopy.exe"
 		},
 		{
 			"name" : "CMAKE_OBJDUMP",
@@ -899,7 +899,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/objdump.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/objdump.exe"
 		},
 		{
 			"name" : "CMAKE_PLATFORM_INFO_INITIALIZED",
@@ -963,7 +963,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/ranlib.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/ranlib.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER",
@@ -979,7 +979,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/windres.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/windres.exe"
 		},
 		{
 			"name" : "CMAKE_RC_COMPILER_WORKS",
@@ -1087,7 +1087,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/readelf.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/readelf.exe"
 		},
 		{
 			"name" : "CMAKE_ROOT",
@@ -1099,7 +1099,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/cmake/win/x64/share/cmake-3.25"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/cmake/win/x64/share/cmake-3.25"
 		},
 		{
 			"name" : "CMAKE_SHARED_LINKER_FLAGS",
@@ -1307,7 +1307,7 @@
 				}
 			],
 			"type" : "FILEPATH",
-			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/strip.exe"
+			"value" : "D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/strip.exe"
 		},
 		{
 			"name" : "CMAKE_VERBOSE_MAKEFILE",
@@ -1335,7 +1335,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "D:/C++/Chess/cmake-build-relwithdebinfo"
+			"value" : "D:/C++/Chess/cmake-build-release"
 		},
 		{
 			"name" : "Chess_IS_TOP_LEVEL",

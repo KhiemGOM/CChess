@@ -2,9 +2,8 @@
 // Created by Admin on 25/03/2023.
 //
 
-#ifndef CHESS_COLOR_ENUM_H
-#define CHESS_COLOR_ENUM_H
-
+#ifndef CHESS_ENUM_H
+#define CHESS_ENUM_H
 
 enum color_enum
 {
@@ -13,7 +12,7 @@ enum color_enum
 };
 enum type_enum
 {
-	e_pawn, e_rook, e_knight, e_bishop, e_queen, e_king, e_empty
+	e_empty, e_pawn, e_rook, e_knight, e_bishop, e_queen, e_king
 };
 enum move_state
 {
@@ -26,4 +25,4 @@ enum move_state
 	check_promotion
 };
 
-#endif //CHESS_COLOR_ENUM_H
+#endif //CHESS_ENUM_H

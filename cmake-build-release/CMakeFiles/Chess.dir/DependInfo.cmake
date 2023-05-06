@@ -13,6 +13,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/C++/Chess/king.cpp" "CMakeFiles/Chess.dir/king.cpp.obj" "gcc" "CMakeFiles/Chess.dir/king.cpp.obj.d"
   "D:/C++/Chess/knight.cpp" "CMakeFiles/Chess.dir/knight.cpp.obj" "gcc" "CMakeFiles/Chess.dir/knight.cpp.obj.d"
   "D:/C++/Chess/main.cpp" "CMakeFiles/Chess.dir/main.cpp.obj" "gcc" "CMakeFiles/Chess.dir/main.cpp.obj.d"
+  "D:/C++/Chess/menu.cpp" "CMakeFiles/Chess.dir/menu.cpp.obj" "gcc" "CMakeFiles/Chess.dir/menu.cpp.obj.d"
   "D:/C++/Chess/move_result.cpp" "CMakeFiles/Chess.dir/move_result.cpp.obj" "gcc" "CMakeFiles/Chess.dir/move_result.cpp.obj.d"
   "D:/C++/Chess/pawn.cpp" "CMakeFiles/Chess.dir/pawn.cpp.obj" "gcc" "CMakeFiles/Chess.dir/pawn.cpp.obj.d"
   "D:/C++/Chess/pieces.cpp" "CMakeFiles/Chess.dir/pieces.cpp.obj" "gcc" "CMakeFiles/Chess.dir/pieces.cpp.obj.d"

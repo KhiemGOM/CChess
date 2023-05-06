@@ -1,8 +1,13 @@
+#include <chrono>
+#include <cmath>
 #include <cstdlib>
+#include <iomanip>
 #include <iostream>
 #include <map>
 #include <processenv.h>
 #include <sstream>
+#include "menu.h"
+#include "multiple_choice_menu.h"
 #include "pieces.h"
 #include "board.h"
 #include "king.h"
@@ -12,10 +17,13 @@
 #include "bishop.h"
 #include "knight.h"
 #include "enum.h"
-#include "Windows.h"
 #include <string>
 #include <wincon.h>
+#include <fstream>
 #include "move_result.h"
+#include "input_menu.h"
+#include "choice_menu.h"
+#include "text_menu.h"
 
 int C_Normal = 7, C_White_Piece = 15, C_Black_Piece = 0, C_White_Tile = 112, C_Black_Tile = 160, C_Normal_Tile = 0;
 
@@ -24,6 +32,10 @@ void DisplayEndGame(std::map<type_enum, char>& type_to_char, board& game_board, 
 void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board);
 
 color_enum Invert(color_enum color);
+
+void DemoTextColor(HANDLE h_console);
+
+void DemoBackgroundColor(HANDLE h_console);
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-avoid-magic-numbers"
@@ -76,16 +88,16 @@ int main()
 //						std::make_shared<king>(position {7,7}, e_black),
 //						std::make_shared<bishop>(position {0,6}, e_white),
 //						std::make_shared<bishop>(position {3,6}, e_black)};
-
 	std::vector<std::pair<board, color_enum>> game_history {};
 	color_enum turn = e_white;
 	type_enum promotion_type = e_empty;
+	float move_count = 0.0F;
+	int full_move_count = 1;
 	bool standard_notation = true;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
 		move_result move {invalid_move};
 		std::string input {}, word, message;
-		float move_count = 0.0F;
 		while (move.state == invalid_move)
 		{
 			//Display the pieces on the board
@@ -99,89 +111,234 @@ int main()
 			}
 			DisplayBoard(type_to_char, game_board);
 			int xi {}, yi {}, xf {}, yf {};
-			if (!standard_notation)
+			std::cout << R"(Enter a move (type "setting" to open up settings): )";
+			do
 			{
-				std::cout
-						<< R"(Enter a move(the coordinate (x (in letters), y (in numbers)) of the starting square then the coordinate of the target square)/"exit" to stop program/"config" to change color/"notation" to change move notation): )";
-			}
-			else
-			{
-				std::cout
-						<< R"(Enter a move in standard notation (e.g. "Nxe4"/"e8=Q")/"exit" to stop program/"config" to change color/"notation" to change move notation): )";
-			}
-			std::getline(std::cin, input);
+				std::getline(std::cin, input);
+			} while (input == "\n");
 			if (input.empty())
 			{
 				continue;
 			}
+			using init_list = std::initializer_list<std::shared_ptr<menu>>;
+			menu settings
+				{
+					"Settings",
+					{
+						std::make_shared<text_menu>("Help",
+							"RULES:\n"
+							"The game is played on an 8x8 board with two players, each\n"
+							"with 16 pieces. The goal is to checkmate the opponent's\n"
+							"king, which means the king is in a position to be captured\n"
+							"and cannot escape capture on the next move.\n"
+							"\n"
+							"SPECIAL MOVES:\n"
+							"- Castling: Move the king two spaces towards a rook, which\n"
+							"  then moves to the other side of the king.\n"
+							"- En Passant: Capture an opponent's pawn that has moved two\n"
+							"  spaces forward and is next to your pawn.\n"
+							"- Promotion: When a pawn reaches the opposite end of the\n"
+							"  board, it can be promoted to a queen, bishop, knight, or\n"
+							"  rook.\n"
+							"For more information: https://en.wikipedia.org/wiki/Rules_of_chess\n"
+							"\n"
+							"GAME CONTROLS:\n"
+							"Type the move you want to make in the appropriate notation.\n"
+							"For information about move notation, please refer to the notation setting\n"
+							"or: https://en.wikipedia.org/wiki/Algebraic_notation_(chess)\n"
+							"\n"
+							"SAVING AND LOADING GAMES:\n"
+							"- Saving the game will give you a FEN string on screen and into a file.\n"
+							"- The save file directory is [CChess Directory]/saves/\n"
+							"- Paste the FEN string into the load menu to load the game.\n"
+							"\n"
+							"TROUBLESHOOTING:\n"
+							"If the game is stuck or not responding, try closing and\n"
+							"restarting the program. If you encounter any other issues,\n"
+							"please contact me on github or open an issue for assistance.\n"
+							"Please note that this game is still in development. One reoccurring\n"
+							"issue is that the colors of text and clear screen relies on Windows API\n"
+							"which may not work on many OSes and cause some issues with the\n"
+							"render itself.\n"
+							"\n"
+							"CREDITS AND LINKS:\n"
+							"This game was developed by KhiemGOM.\n"
+							"My github page: https://github.com/KhiemGOM\n"
+							"Check out the source code or report an issue here: https://github.com/KhiemGOM/CChess"
+						),
+						std::make_shared<menu>("Appearances", init_list
+							{
+								std::make_shared<input_menu<int>>(
+									"Color of Black Piece",
+									[&]()
+									{
+										DemoTextColor(h_console);
+									},
+									[&](int input)
+									{
+										C_Black_Piece = input;
+									},
+									C_Black_Piece
+								),
+								std::make_shared<input_menu<int>>(
+									"Color of White Piece",
+									[&]()
+									{
+										DemoTextColor(h_console);
+									},
+									[&](int input)
+									{
+										C_White_Piece = input;
+									},
+									C_White_Piece
+								),
+								std::make_shared<input_menu<int>>(
+									"Color of Text",
+									[&]()
+									{
+										DemoTextColor(h_console);
+									},
+									[&](int input)
+									{
+										C_Normal = input;
+									},
+									C_Normal
+								),
+								std::make_shared<input_menu<int>>(
+									"Color of Black Tile",
+									[&]()
+									{
+										DemoBackgroundColor(h_console);
+									},
+									[&](int input)
+									{
+										C_Black_Tile = input * 16;
+									},
+									[&]()
+									{
+										return C_Black_Tile / 16;
+									}
+								),
+								std::make_shared<input_menu<int>>(
+									"Color of White Tile",
+									[&]()
+									{
+										DemoBackgroundColor(h_console);
+									},
+									[&](int input)
+									{
+										C_White_Tile = input * 16;
+									},
+									[&]()
+									{
+										return C_White_Tile / 16;
+									}
+								),
+								std::make_shared<input_menu<int>>(
+									"Color of Text Background",
+									[&]()
+									{
+										DemoBackgroundColor(h_console);
+									},
+									[&](int input)
+									{
+										C_Normal_Tile = input * 16;
+									},
+									[&]()
+									{
+										return C_Normal_Tile / 16;
+									}
+								)
+							}),
+						std::make_shared<multiple_choice_menu<std::string_view>>(
+							"Notation",
+							init_list
+								{
+									std::make_shared<choice_menu>(
+										"Standard Notation (Nxe4/e8=Q)",
+										[&]()
+										{
+											standard_notation = true;
+										}
+									),
+									std::make_shared<choice_menu>(
+										"Long Algebraic Notation (e2e4, no x for capture)",
+										[&]()
+										{
+											standard_notation = false;
+										}
+									)
+								},
+							[&]()
+							{
+								return standard_notation ? "Standard Notation" : "Long Algebraic Notation";
+							}
+						),
+						std::make_shared<menu>("Save and Load", init_list
+							{
+								std::make_shared<text_menu>("Save",
+									[&]()
+									{
+										return "This is the FEN string of the current position:\n" +
+											   (std::string)game_board.save(turn, (int)std::round(move_count * 2),
+												   full_move_count) +
+											   "\nYour current position is also saved into the saves folder";
+									},
+									[&]()
+									{
+										auto current_time = std::chrono::system_clock::now();
+										auto current_time_t = std::chrono::system_clock::to_time_t(current_time);
+										std::stringstream ss {};
+										ss << std::put_time(std::localtime(&current_time_t), "%d-%m-%Y_%H-%M-%S");
+										std::ofstream save_file {"./saves/" + ss.str() + ".fen"};
+										save_file
+											<< game_board.save(turn, (int)std::round(move_count * 2), full_move_count);
+									}
+								),
+								std::make_shared<text_menu>("Load",
+									[&]()
+									{
+										return "Make sure to save your progress and prevent losing your current position\n"
+											   "Please enter the FEN string of the position you want to load:";
+									},
+									[&]()
+									{
+										std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+										board temp {};
+										std::string fen {};
+										std::getline(std::cin, fen);
+										int temp_move_count = 0, temp_full_move = 0;
+										color_enum temp_turn = e_white;
+										auto err = temp.load(fen, temp_move_count, temp_full_move, temp_turn);
+										if (err.empty())
+										{
+											game_board = temp;
+											move_count = (float)temp_move_count / 2;
+											full_move_count = temp_full_move;
+											turn = temp_turn;
+											std::cout << "Successfully loaded\n";
+											return;
+										}
+										std::cout << "Invalid FEN string: " << err << "\n";
+									}
+								)
+							}),
+						std::make_shared<choice_menu>(
+							"Exit",
+							[&]()
+							{
+								std::exit(0);
+							}
+						)
+					}
+				};
 			if (input == "exit")
 			{
 				std::exit(0);
 			}
-			if (input == "config")
+			if (input == "setting")
 			{
-				system("cls");
-				std::cout << "Demo Color:\n";
-				for (int i = 0; i < 16; i++)
-				{
-					SetConsoleTextAttribute(h_console, i);
-					std::cout << i << ": " << "Hello World! ";
-					SetConsoleTextAttribute(h_console, i + 240);
-					std::cout << i << ": " << "Hello World!";
-					SetConsoleTextAttribute(h_console, 0);
-					std::cout << '\n';
-				}
-				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
-				std::cout
-						<< "Input your preferred front color (for colors of text, "
-						   "white piece, black piece in that order): ";
-				std::string input2;
-				getline(std::cin, input2);
-				std::stringstream ss2 {input2};
-				ss2 >> C_Normal >> C_White_Piece >> C_Black_Piece;
-				system("cls");
-				//Input background color
-				for (int i = 0; i < 16; i++)
-				{
-					SetConsoleTextAttribute(h_console, i * 16);
-					std::cout << i << ": " << "Hello World! ";
-					SetConsoleTextAttribute(h_console, i * 16 + 15);
-					std::cout << i << ": " << "Hello World!";
-					SetConsoleTextAttribute(h_console, 0);
-					std::cout << '\n';
-				}
-				SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
-				std::cout
-						<< "Input your preferred background color (for background colors of text, "
-						   "white piece, black piece in that order): ";
-				getline(std::cin, input2);
-				ss2.clear();
-				ss2 = std::stringstream {input2};
-				ss2 >> C_Normal_Tile >> C_White_Tile >> C_Black_Tile;
-				C_Normal_Tile *= 16;
-				C_White_Tile *= 16;
-				C_Black_Tile *= 16;
-				system("cls");
-				continue;
-			}
-			if (input == "notation")
-			{
-				std::cout
-						<< R"(Input your notation ("standard" for standard move notation(Nxe4)/"coordinate" for coordinate move notation(e1e4)): )";
-				std::string temp;
-				std::cin >> temp;
-				if (temp == "standard")
-				{
-					standard_notation = true;
-				}
-				else if (temp == "coordinate")
-				{
-					standard_notation = false;
-				}
-				else
-				{
-					message = "Invalid notation type";
-				}
+				settings.display(C_Normal, C_Normal_Tile);
 				continue;
 			}
 			std::stringstream ss {input};
@@ -255,8 +412,8 @@ int main()
 					if (move.state == check)
 					{
 						DisplayEndGame(type_to_char, game_board,
-								std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
-								" won");
+							std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
+							" won");
 					}
 					DisplayEndGame(type_to_char, game_board, "Stalemate, draw");
 				}
@@ -300,6 +457,11 @@ int main()
 					}
 				}
 
+				if (turn == e_black)
+				{
+					++full_move_count;
+				}
+
 				//Insufficient material
 				if (game_board.is_insufficient_material())
 				{
@@ -315,12 +477,44 @@ int main()
 	}
 }
 
+void DemoBackgroundColor(HANDLE h_console)
+{
+	system("cls");
+	//Input background color
+	for (int i = 0; i < 16; i++)
+	{
+		SetConsoleTextAttribute(h_console, i * 16);
+		std::cout << i << ": " << "Hello World! ";
+		SetConsoleTextAttribute(h_console, i * 16 + 15);
+		std::cout << i << ": " << "Hello World!";
+		SetConsoleTextAttribute(h_console, 0);
+		std::cout << '\n';
+	}
+	SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
+}
+
+void DemoTextColor(HANDLE h_console)
+{
+	system("cls");
+	std::cout << "Demo Color:\n";
+	for (int i = 0; i < 16; i++)
+	{
+		SetConsoleTextAttribute(h_console, i);
+		std::cout << i << ": " << "Hello World! ";
+		SetConsoleTextAttribute(h_console, i + 240);
+		std::cout << i << ": " << "Hello World!";
+		SetConsoleTextAttribute(h_console, 0);
+		std::cout << '\n';
+	}
+	SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
+}
+
 #pragma clang diagnostic pop
 
 void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board)
 {
 	std::array<std::array<std::pair<char, color_enum>, 8>, 8> pos_board {};
-	for (auto& a: game_board.val)
+	for (const auto& a: game_board.val)
 	{
 		if (a.get() != nullptr)
 		{

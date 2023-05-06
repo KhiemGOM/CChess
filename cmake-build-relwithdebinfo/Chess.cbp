@@ -11,10 +11,10 @@
 				<Option working_dir="D:/C++/Chess/cmake-build-relwithdebinfo"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Chess">
@@ -25,19 +25,19 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="D:/C++/Chess/."/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 Chess"/>
-					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 Chess"/>
+					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Chess/fast">
@@ -48,39 +48,39 @@
 				<Option compiler="gcc"/>
 				<Compiler>
 					<Add directory="D:/C++/Chess/."/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
-					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8109.222/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/x86_64-w64-mingw32"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/backward"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed"/>
+					<Add directory="D:/Programmes App/JetBrains/apps/CLion/ch-0/231.8770.66/bin/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 Chess/fast"/>
-					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 Chess/fast"/>
+					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
 				<Option working_dir="D:/C++/Chess/cmake-build-relwithdebinfo"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
 				<Option working_dir="D:/C++/Chess/cmake-build-relwithdebinfo"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231810~1.222/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/bin/mingw32-make.exe -f &quot;D:/C++/Chess/cmake-build-relwithdebinfo/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
@@ -94,6 +94,12 @@
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/board.h">
+			<Option target="Chess"/>
+		</Unit>
+		<Unit filename="D:/C++/Chess/choice_menu.h">
+			<Option target="Chess"/>
+		</Unit>
+		<Unit filename="D:/C++/Chess/input_menu.h">
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/king.cpp">
@@ -111,10 +117,19 @@
 		<Unit filename="D:/C++/Chess/main.cpp">
 			<Option target="Chess"/>
 		</Unit>
+		<Unit filename="D:/C++/Chess/menu.cpp">
+			<Option target="Chess"/>
+		</Unit>
+		<Unit filename="D:/C++/Chess/menu.h">
+			<Option target="Chess"/>
+		</Unit>
 		<Unit filename="D:/C++/Chess/move_result.cpp">
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/move_result.h">
+			<Option target="Chess"/>
+		</Unit>
+		<Unit filename="D:/C++/Chess/multiple_choice_menu.h">
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/pawn.cpp">
@@ -139,6 +154,9 @@
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/rook.h">
+			<Option target="Chess"/>
+		</Unit>
+		<Unit filename="D:/C++/Chess/text_menu.h">
 			<Option target="Chess"/>
 		</Unit>
 		<Unit filename="D:/C++/Chess/CMakeLists.txt">
