@@ -5,6 +5,8 @@
 #include "menu.h"
 #include <iostream>
 #include <Windows.h>
+#include <sstream>
+
 //#include "main.cpp"
 void menu::display(const int& C_Normal, const int& C_Normal_Tile) const
 {
@@ -28,7 +30,10 @@ void menu::display(const int& C_Normal, const int& C_Normal_Tile) const
 		}
 		std::cout << "Please enter the index of the menu you want to navigate to: ";
 		int index = 0;
-		std::cin >> index;
+		std::string input;
+		getline(std::cin, input);
+		std::stringstream ss{input};
+		ss >> index;
 		--index;
 		if (index == - 1)
 		{

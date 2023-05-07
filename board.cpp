@@ -869,8 +869,6 @@ std::string board::save(color_enum turn, int half_move, int full_move) const
 	}
 	result += ' ';
 	result += std::to_string(half_move) + ' ' + std::to_string(full_move);
-//	std::cout << result;
-//	std::cin >> result;
 	return {result};
 }
 
@@ -1010,15 +1008,6 @@ std::string board::load(std::string_view input, int& half_move, int& full_move, 
 			{
 				if (color == e_white)
 				{
-/*					if (x != 0 && y != 0 && castle_wqs)
-//					{
-//						return "Conflict between white queen-side rook position and castling availability";
-//					}
-//					if (x != 7 && y != 0 && castle_wks)
-//					{
-//						return "Conflict between white king-side rook position and castling availability";
-//					}
-//TODO Check for conflict between rook position and castling availability */
 					if ((x == 0 && y == 0 && !castle_wqs) || (x == 7 && y == 0 && !castle_wks) ||
 						((x != 0 || y != 0) && (x != 7 || y != 0)))
 					{
@@ -1035,14 +1024,6 @@ std::string board::load(std::string_view input, int& half_move, int& full_move, 
 				}
 				else
 				{
-/*					if (x != 0 && y != 7 && castle_bqs)
-//					{
-//						return "Conflict between black queen-side rook position and castling availability";
-//					}
-//					if (x != 7 && y != 7 && castle_bks)
-//					{
-//						return "Conflict between black king-side rook position and castling availability";
-//					} */
 					if ((x == 0 && y == 7 && !castle_bqs) || (x == 7 && y == 7 && !castle_bks) ||
 						((x != 0 || y != 7) && (x != 7 || y != 7)))
 					{
@@ -1074,6 +1055,30 @@ std::string board::load(std::string_view input, int& half_move, int& full_move, 
 	if (ep_pos_valid != en_passant_present)
 	{
 		return "No pawn on the provided en passant square";
+	}
+	if (castle_wqs && (!find({0,0}).has_value() || find({0,0}).value().get()->type != e_rook))
+	{
+		return "No white queen-side rook while castling availability is set";
+	}
+	if (castle_wks && (!find({7,0}).has_value() || find({7,0}).value().get()->type != e_rook))
+	{
+		return "No white king-side rook while castling availability is set";
+	}
+	if (castle_bqs && (!find({0,7}).has_value() || find({0,7}).value().get()->type != e_rook))
+	{
+		return "No black queen-side rook while castling availability is set";
+	}
+	if (castle_bks && (!find({7,7}).has_value() || find({7,7}).value().get()->type != e_rook))
+	{
+		return "No black king-side rook while castling availability is set";
+	}
+	if (!w_king)
+	{
+		return "No white king";
+	}
+	if (!b_king)
+	{
+		return "No black king";
 	}
 	if ((castle_wks || castle_wqs) != w_king_c)
 	{

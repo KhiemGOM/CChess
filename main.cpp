@@ -111,7 +111,13 @@ int main()
 			}
 			DisplayBoard(type_to_char, game_board);
 			int xi {}, yi {}, xf {}, yf {};
-			std::cout << R"(Enter a move (type "setting" to open up settings): )";
+			std::cout
+				<< "Notation: " + std::string {standard_notation ? "Standard notation" : "Long Algebraic notation"} +
+				   "\n"
+				   "Turn: " + std::string {turn == e_white ? "White" : "Black"} + "\n"
+																				  "Move count: " +
+				   std::to_string(full_move_count) + "\n"
+													 R"(Enter a move (type "setting" to open up settings): )";
 			do
 			{
 				std::getline(std::cin, input);
@@ -303,7 +309,6 @@ int main()
 									},
 									[&]()
 									{
-										std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 										board temp {};
 										std::string fen {};
 										std::getline(std::cin, fen);

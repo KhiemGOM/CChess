@@ -6,6 +6,7 @@
 #define CHESS_INPUT_MENU_H
 
 #include "menu.h"
+#include <sstream>
 #include <windows.h>
 
 #include <utility>
@@ -69,7 +70,10 @@ public:
 		HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
 		SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 		Arg arg {};
-		std::cin >> arg;
+		std::string input {};
+		getline(std::cin, input);
+		std::stringstream ss{input};
+		ss >> arg;
 		do_with_input(arg);
 		std::cout << text << "has been changed to" << arg;
 	};

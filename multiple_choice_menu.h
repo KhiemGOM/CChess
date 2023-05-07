@@ -12,7 +12,7 @@
 
 template<class Arg>
 requires
-requires (Arg&& arg){
+requires(Arg&& arg){
 	std::cout << arg;
 }
 class multiple_choice_menu : public menu
@@ -65,7 +65,10 @@ public:
 			}
 			std::cout << "Please enter the index of the option you want to choose: ";
 			int index = 0;
-			std::cin >> index;
+			std::string input;
+			getline(std::cin, input);
+			std::stringstream ss {input};
+			ss >> index;
 			--index;
 			if (index == -1)
 			{
