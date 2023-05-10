@@ -416,4 +416,6 @@ CMakeFiles/Chess.dir/menu.cpp.obj: D:\C++\Chess\menu.cpp \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/x86_64-w64-mingw32/include/sec_api/stralign_s.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/x86_64-w64-mingw32/include/winsvc.h \
  D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/x86_64-w64-mingw32/include/mcx.h \
- D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/x86_64-w64-mingw32/include/imm.h
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/x86_64-w64-mingw32/include/imm.h \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/sstream \
+ D:/PROGRA~1/JETBRA~1/apps/CLion/ch-0/231877~1.66/bin/mingw/lib/gcc/x86_64-w64-mingw32/11.2.0/include/c++/bits/sstream.tcc

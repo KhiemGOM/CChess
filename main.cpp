@@ -20,6 +20,7 @@
 #include <string>
 #include <wincon.h>
 #include <fstream>
+#include <filesystem>
 #include "move_result.h"
 #include "input_menu.h"
 #include "choice_menu.h"
@@ -296,6 +297,11 @@ int main()
 										auto current_time_t = std::chrono::system_clock::to_time_t(current_time);
 										std::stringstream ss {};
 										ss << std::put_time(std::localtime(&current_time_t), "%d-%m-%Y_%H-%M-%S");
+										std::filesystem::path save_path = "./saves/";
+										if (!std::filesystem::exists(save_path))
+										{
+											std::filesystem::create_directory(save_path);
+										}
 										std::ofstream save_file {"./saves/" + ss.str() + ".fen"};
 										save_file
 											<< game_board.save(turn, (int)std::round(move_count * 2), full_move_count);
