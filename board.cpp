@@ -17,6 +17,7 @@
 #include "knight.h"
 #include "pawn.h"
 #include "king.h"
+#include "ultilities.h"
 
 std::optional<std::reference_wrapper<const std::shared_ptr<pieces>>> board::find(position pos) const
 {
@@ -67,7 +68,7 @@ bool board::is_out_of_moves(color_enum current_color) const
 											  type_enum::e_rook, type_enum::e_bishop, type_enum::e_knight,
 											  type_enum::e_pawn})
 						{
-							if (piece->try_to_move(game_board_copy, {i, j}, type) != move_state::invalid_move)
+							if (!piece->try_to_move(game_board_copy, {i, j}, type).contains(invalid_move))
 							{
 								return false;
 							}
@@ -181,9 +182,9 @@ bool board::is_being_checked(color_enum current_color)
 }
 
 //Return true if the input was successful
-bool board::promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color)
+bool board::promote_input(std::shared_ptr<pieces>& piece, position target, color_enum new_color)
 {
-	std::cout << "Enter the piece you want to promote to (q, r, b, n): ";
+	std::cout << "Enter the piece you want to promote_input to (q, r, b, n): ";
 	std::string input2;
 	getline(std::cin, input2);
 	std::shared_ptr<pieces>& piece_to_promote = find(piece->pos).value().get(); //NOLINT
@@ -222,7 +223,7 @@ void board::promote(std::shared_ptr<pieces>& piece, position target, color_enum 
 			break;
 		case type_enum::e_knight: piece.reset(new knight {target, new_color});
 			break;
-		case type_enum::e_empty: promote(piece, target, new_color);
+		case type_enum::e_empty: promote_input(piece, target, new_color);
 		default: break;
 	}
 }
@@ -373,9 +374,9 @@ standard_move board::interpret(std::string input, color_enum color) const
 		auto rook = find({7, king->pos.y});
 		if (!rook.has_value())
 		{
-			return {move_state::invalid_move, "Cannot castle"};
+			return {{invalid_move}, "Cannot castle"};
 		}
-		return {king->pos, rook->get()->pos, move};
+		return {king->pos, rook->get()->pos, {_move_state::move}};
 	}
 	if (input == "O-O-O")
 	{
@@ -383,9 +384,9 @@ standard_move board::interpret(std::string input, color_enum color) const
 		auto rook = find({0, king->pos.y});
 		if (!rook.has_value())
 		{
-			return {move_state::invalid_move, "Cannot castle"};
+			return {{invalid_move}, "Cannot castle"};
 		}
-		return {king->pos, rook->get()->pos, move};
+		return {king->pos, rook->get()->pos, {_move_state::move}};
 	}
 	auto only_pos = ToPosition(input);
 	if (only_pos.x != -1)
@@ -397,7 +398,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			promotion = ToType(input.back());
 			if (promotion == e_empty)
 			{
-				return {move_state::invalid_move, "Invalid promotion"};
+				return {{invalid_move}, "Invalid promotion"};
 			}
 		}
 		//Only a position is given (pawn move) (e4)
@@ -414,9 +415,9 @@ standard_move board::interpret(std::string input, color_enum color) const
 				{
 					continue;
 				}
-				return {result.value().get()->pos, only_pos, move_state::move, promotion};
+				return {result.value().get()->pos, only_pos, {_move_state::move}, promotion};
 			}
-			return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
+			return {{invalid_move}, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
 		}
 
 		for (int ind = only_pos.y - 1; ind >= 0; ind--)
@@ -430,9 +431,9 @@ standard_move board::interpret(std::string input, color_enum color) const
 			{
 				continue;
 			}
-			return {result.value().get()->pos, only_pos, move_state::move};
+			return {result.value().get()->pos, only_pos, {_move_state::move}};
 		}
-		return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
+		return {{invalid_move}, "No pawn on the " + std::string(1, input[0]) + " file that can move there"};
 	}
 
 	bool is_capture = std::ranges::any_of(input, [](char k)
@@ -448,14 +449,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 				promotion = ToType(input.back());
 				if (promotion == e_empty)
 				{
-					return {move_state::invalid_move, "Invalid promotion"};
+					return {{invalid_move}, "Invalid promotion"};
 				}
 			}
 			//Capture with pawn (exd4)
 			position to = ToPosition(input.substr(2, 2));
 			if (to.x == -1)
 			{
-				return {move_state::invalid_move, "Invalid position"};
+				return {{invalid_move}, "Invalid position"};
 			}
 			if (color == e_black)
 			{
@@ -470,9 +471,9 @@ standard_move board::interpret(std::string input, color_enum color) const
 					{
 						continue;
 					}
-					return {result.value().get()->pos, to, move_state::capture, promotion};
+					return {result.value().get()->pos, to, {capture}, promotion};
 				}
-				return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
+				return {{invalid_move}, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
 			}
 			for (int ind = to.y - 1; ind >= 0; ind--)
 			{
@@ -485,15 +486,15 @@ standard_move board::interpret(std::string input, color_enum color) const
 				{
 					continue;
 				}
-				return {result.value().get()->pos, to, move_state::capture, promotion};
+				return {result.value().get()->pos, to, {capture}, promotion};
 			}
-			return {invalid_move, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
+			return {{invalid_move}, "No pawn on the " + std::string(1, input[0]) + " file that can capture there"};
 		}
 		//Capture with other piece
 		auto type = ToType(input[0]);
 		if (type == e_empty)
 		{
-			return {invalid_move, "Invalid piece notation"};
+			return {{invalid_move}, "Invalid piece notation"};
 		}
 		if (IsFile(input[1]))
 		{
@@ -501,7 +502,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			auto to = ToPosition(input.substr(3, 2));
 			if (to.x == -1)
 			{
-				return {move_state::invalid_move, "Invalid position"};
+				return {{invalid_move}, "Invalid position"};
 			}
 			auto file = input[1] - 'a';
 			auto candidates = find_all(type, color, [this, &file, &to](const auto& a)
@@ -510,14 +511,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + TypeToString(type) + " on " + std::string(1, input[1]) +
-									  " file that can capture there"};
+				return {{invalid_move}, "No " + TypeToString(type) + " on " + std::string(1, input[1]) +
+										" file that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
-				return {invalid_move, "Please provide rank disambiguation"};
+				return {{invalid_move}, "Please provide rank disambiguation"};
 			}
-			return {candidates[0].get()->pos, to, capture};
+			return {candidates[0].get()->pos, to, {capture}};
 		}
 		if (IsRank(input[1]))
 		{
@@ -525,7 +526,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			auto to = ToPosition(input.substr(3, 2));
 			if (to.x == -1)
 			{
-				return {move_state::invalid_move, "Invalid position"};
+				return {{invalid_move}, "Invalid position"};
 			}
 			auto rank = input[1] - '1';
 			auto candidates = find_all(type, color, [this, &rank, &to](const auto& a)
@@ -534,14 +535,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move,
+				return {{invalid_move},
 						"No " + TypeToString(type) + " on " + std::to_string(rank) + " rank that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
-				return {invalid_move, "Please provide file disambiguation"};
+				return {{invalid_move}, "Please provide file disambiguation"};
 			}
-			return {candidates[0].get()->pos, to, capture};
+			return {candidates[0].get()->pos, to, {capture}};
 		}
 		if (input[1] == 'x')
 		{
@@ -549,7 +550,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 			auto to = ToPosition(input.substr(2, 2));
 			if (to.x == -1)
 			{
-				return {move_state::invalid_move, "Invalid position"};
+				return {{invalid_move}, "Invalid position"};
 			}
 			auto candidates = find_all(type, color, [this, &to](const auto& a)
 			{
@@ -557,20 +558,20 @@ standard_move board::interpret(std::string input, color_enum color) const
 			});
 			if (candidates.empty())
 			{
-				return {invalid_move, "No " + TypeToString(type) + " on board that can capture there"};
+				return {{invalid_move}, "No " + TypeToString(type) + " on board that can capture there"};
 			}
 			if (candidates.size() > 1)
 			{
-				return {invalid_move, "Please provide disambiguation"};
+				return {{invalid_move}, "Please provide disambiguation"};
 			}
-			return {candidates[0].get()->pos, to, capture};
+			return {candidates[0].get()->pos, to, {capture}};
 		}
-		return {invalid_move, "Unknown notation"};
+		return {{invalid_move}, "Unknown notation"};
 	}
 	auto type = ToType(input[0]);
 	if (type == e_empty)
 	{
-		return {invalid_move, "Invalid piece notation"};
+		return {{invalid_move}, "Invalid piece notation"};
 	}
 	if (IsFile(input[1]) && input.size() == 4)
 	{
@@ -578,7 +579,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 		auto to = ToPosition(input.substr(2, 2));
 		if (to.x == -1)
 		{
-			return {move_state::invalid_move, "Invalid position"};
+			return {{invalid_move}, "Invalid position"};
 		}
 		auto file = input[1] - 'a';
 		auto candidates = find_all(type, color, [this, &file, &to](const auto& a)
@@ -587,14 +588,14 @@ standard_move board::interpret(std::string input, color_enum color) const
 		});
 		if (candidates.empty())
 		{
-			return {invalid_move,
+			return {{invalid_move},
 					"No " + TypeToString(type) + " on " + std::string(1, input[1]) + " file that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
-			return {invalid_move, "Please provide rank disambiguation"};
+			return {{invalid_move}, "Please provide rank disambiguation"};
 		}
-		return {candidates[0].get()->pos, to, move};
+		return {candidates[0].get()->pos, to, {move}};
 	}
 	if (IsRank(input[1]) && input.size() == 4)
 	{
@@ -602,7 +603,7 @@ standard_move board::interpret(std::string input, color_enum color) const
 		auto to = ToPosition(input.substr(2, 2));
 		if (to.x == -1)
 		{
-			return {move_state::invalid_move, "Invalid position"};
+			return {{invalid_move}, "Invalid position"};
 		}
 		auto rank = input[1] - '1';
 		auto candidates = find_all(type, color, [this, &rank, &to](const auto& a)
@@ -611,21 +612,21 @@ standard_move board::interpret(std::string input, color_enum color) const
 		});
 		if (candidates.empty())
 		{
-			return {invalid_move,
+			return {{invalid_move},
 					"No " + TypeToString(type) + " on " + std::to_string(rank) + " rank that can move there"};
 		}
 		if (candidates.size() > 1)
 		{
-			return {invalid_move, "Please provide file disambiguation"};
+			return {{invalid_move}, "Please provide file disambiguation"};
 		}
-		return {candidates[0].get()->pos, to, move};
+		return {candidates[0].get()->pos, to, {_move_state::move}};
 	}
 
 	//No disambiguation (Ne5)
 	auto to = ToPosition(input.substr(1, 2));
 	if (to.x == -1)
 	{
-		return {move_state::invalid_move, "Invalid position"};
+		return {{invalid_move}, "Invalid position"};
 	}
 	auto candidates = find_all(type, color, [this, &to](const auto& a)
 	{
@@ -633,13 +634,13 @@ standard_move board::interpret(std::string input, color_enum color) const
 	});
 	if (candidates.empty())
 	{
-		return {invalid_move, "No " + TypeToString(type) + " on board that can move there"};
+		return {{invalid_move}, "No " + TypeToString(type) + " on board that can move there"};
 	}
 	if (candidates.size() > 1)
 	{
-		return {invalid_move, "Please provide disambiguation"};
+		return {{invalid_move}, "Please provide disambiguation"};
 	}
-	return {candidates[0].get()->pos, to, move};
+	return {candidates[0].get()->pos, to, {_move_state::move}};
 }
 
 std::vector<std::reference_wrapper<const std::shared_ptr<pieces>>>
@@ -1056,19 +1057,19 @@ std::string board::load(std::string_view input, int& half_move, int& full_move, 
 	{
 		return "No pawn on the provided en passant square";
 	}
-	if (castle_wqs && (!find({0,0}).has_value() || find({0,0}).value().get()->type != e_rook))
+	if (castle_wqs && (!find({0, 0}).has_value() || find({0, 0}).value().get()->type != e_rook))
 	{
 		return "No white queen-side rook while castling availability is set";
 	}
-	if (castle_wks && (!find({7,0}).has_value() || find({7,0}).value().get()->type != e_rook))
+	if (castle_wks && (!find({7, 0}).has_value() || find({7, 0}).value().get()->type != e_rook))
 	{
 		return "No white king-side rook while castling availability is set";
 	}
-	if (castle_bqs && (!find({0,7}).has_value() || find({0,7}).value().get()->type != e_rook))
+	if (castle_bqs && (!find({0, 7}).has_value() || find({0, 7}).value().get()->type != e_rook))
 	{
 		return "No black queen-side rook while castling availability is set";
 	}
-	if (castle_bks && (!find({7,7}).has_value() || find({7,7}).value().get()->type != e_rook))
+	if (castle_bks && (!find({7, 7}).has_value() || find({7, 7}).value().get()->type != e_rook))
 	{
 		return "No black king-side rook while castling availability is set";
 	}
@@ -1135,4 +1136,66 @@ std::string board::load(std::string_view input, int& half_move, int& full_move, 
 		}
 	}
 	return {};
+}
+
+std::string
+board::to_pgn(const move_state& move, const std::shared_ptr<pieces>& from, const std::shared_ptr<pieces>& to) const
+{
+	if (move.contains(ks_castle))
+	{
+		return "O-O";
+	}
+	if (move.contains(qs_castle))
+	{
+		return "O-O-O";
+	}
+	char from_char = type_to_upper_char(from->type),
+		file_disambiguation = 0,
+		rank_disambiguation = 0;
+	//Check for file ambiguity
+	auto find_result_f = find_all(from->type, from->color, [&](const auto& a)
+	{
+		return a->pos.y == from->pos.y;
+	});
+	if (find_result_f.size() >= 2)
+	{
+		file_disambiguation = 'a' + from->pos.x; //NOLINT
+	}
+
+	//Check for rank ambiguity
+	auto find_result_r = find_all(from->type, from->color, [&](const auto& a)
+	{
+		return a->pos.x == from->pos.x;
+	});
+	if (find_result_r.size() >= 2)
+	{
+		rank_disambiguation = '1' + from->pos.y; //NOLINT
+	}
+	if (from->type == e_pawn)
+	{
+		if (move.contains(capture))
+		{
+			return std::string(1, 'a' + from->pos.x) + "x" + to->pos.to_string(); //NOLINT
+		}
+		return to->pos.to_string();
+	}
+	std::string result = std::string(1, from_char);
+	if (file_disambiguation != 0)
+	{
+		result += file_disambiguation;
+	}
+	if (rank_disambiguation != 0)
+	{
+		result += rank_disambiguation;
+	}
+	if (move.contains(capture))
+	{
+		result += "x";
+	}
+	result += to->pos.to_string();
+	if (move.contains(check))
+	{
+		result += "+";
+	}
+	return result;
 }

@@ -15,9 +15,7 @@
 
 class position;
 class standard_move;
-
 class pieces;
-
 
 class board
 {
@@ -59,13 +57,15 @@ public:
 
 	[[nodiscard]] bool is_being_checked(color_enum current_color);
 
-	bool promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color);
+	bool promote_input(std::shared_ptr<pieces>& piece, position target, color_enum new_color);
 
 	void promote(std::shared_ptr<pieces>& piece, position target, color_enum new_color, type_enum new_type);
 
 	[[nodiscard]] short compare(const board& other) const;
 
 	[[nodiscard]] standard_move interpret(std::string input, color_enum color) const;
+
+	[[nodiscard]] std::string to_pgn(const move_state& move, const std::shared_ptr<pieces>& from, const std::shared_ptr<pieces>& to) const;
 
 	[[nodiscard]] bool is_insufficient_material () const;
 

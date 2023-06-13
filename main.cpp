@@ -28,9 +28,10 @@
 
 int C_Normal = 7, C_White_Piece = 15, C_Black_Piece = 0, C_White_Tile = 112, C_Black_Tile = 160, C_Normal_Tile = 0;
 
-void DisplayEndGame(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason);
+void DisplayEndGame(const std::vector<std::string>& pgn, board& game_board, std::string&& reason,
+					std::map<type_enum, char>& type_to_char);
 
-void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board);
+void DisplayBoard(const std::vector<std::string>& pgn, board& game_board, std::map<type_enum, char>& type_to_char);
 
 color_enum Invert(color_enum color);
 
@@ -90,6 +91,7 @@ int main()
 //						std::make_shared<bishop>(position {0,6}, e_white),
 //						std::make_shared<bishop>(position {3,6}, e_black)};
 	std::vector<std::pair<board, color_enum>> game_history {};
+	std::vector<std::string> move_history_pgn {};
 	color_enum turn = e_white;
 	type_enum promotion_type = e_empty;
 	float move_count = 0.0F;
@@ -97,9 +99,9 @@ int main()
 	bool standard_notation = true;
 	while (!(GetKeyState(VK_ESCAPE) & 0x8000))
 	{
-		move_result move {invalid_move};
+		move_result move {{invalid_move}};
 		std::string input {}, word, message;
-		while (move.state == invalid_move)
+		while (move.state.contains(invalid_move))
 		{
 			//Display the pieces on the board
 			system("cls");
@@ -110,7 +112,7 @@ int main()
 				std::cout << message << '\n';
 				message.clear();
 			}
-			DisplayBoard(type_to_char, game_board);
+			DisplayBoard(move_history_pgn, game_board, type_to_char);
 			int xi {}, yi {}, xf {}, yf {};
 			std::cout
 				<< "Notation: " + std::string {standard_notation ? "Standard notation" : "Long Algebraic notation"} +
@@ -353,7 +355,7 @@ int main()
 				continue;
 			}
 			std::stringstream ss {input};
-			std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> piece_at_start {};
+			std::optional<std::reference_wrapper<std::shared_ptr<pieces>>> from {};
 			if (!standard_notation)
 			{
 				//If the first and 3rd word are character, convert them to numbers
@@ -376,7 +378,7 @@ int main()
 			else
 			{
 				auto move_r = game_board.interpret(ss.str(), turn);
-				if (move_r.state != invalid_move)
+				if (!move_r.state.contains(invalid_move))
 				{
 					xi = move_r.from.x;
 					yi = move_r.from.y;
@@ -390,43 +392,46 @@ int main()
 					continue;
 				}
 			}
-			piece_at_start = game_board.find(position {xi, yi});
-			if (!piece_at_start.has_value())
+			from = game_board.find(position {xi, yi});
+			if (!from.has_value())
 			{
 				message = "Invalid move: No piece on " + std::string(1, xi + 'a') + std::to_string(yi + 1); //NOLINT
 				continue;
 			}
 
-			if (piece_at_start.value().get()->color != turn)
+			if (from.value().get()->color != turn)
 			{
 				message = std::string("Invalid move: It's not ").append(turn == e_white ? "black's" : "white's") +
 						  " turn yet";
 				continue;
 			}
-
-			move = piece_at_start.value().get()->move(game_board, position {xf, yf}, promotion_type);
-			if (move.state != invalid_move)
+			auto from_copy = std::shared_ptr<pieces>(from->get()->clone());
+			move = from.value().get()->move(game_board, position {xf, yf}, promotion_type);
+			if (!move.state.contains(invalid_move))
 			{
 				//Moved successfully
 				for (auto& p: game_board.val)
 				{
 					if (p != nullptr)
 					{
-						if (p->type == e_pawn && p->color == turn && p != piece_at_start.value().get())
+						if (p->type == e_pawn && p->color == turn && p != from.value().get())
 						{
 							p->just_moved_2square = false;
 						}
 					}
 				}
+				move_history_pgn.push_back(
+					game_board.to_pgn(move.state, from_copy, game_board.find({xf, yf})->get()));
 				if (game_board.is_out_of_moves(Invert(turn)))
 				{
-					if (move.state == check)
+					if (move.state.contains(check))
 					{
-						DisplayEndGame(type_to_char, game_board,
+						move_history_pgn.back().replace(move_history_pgn.back().find('+'), 1, "#");
+						DisplayEndGame(move_history_pgn, game_board,
 							std::string("Checkmate, ").append(turn == e_white ? "white" : "black") +
-							" won");
+							" won", type_to_char);
 					}
-					DisplayEndGame(type_to_char, game_board, "Stalemate, draw");
+					DisplayEndGame(move_history_pgn, game_board, "Stalemate, drawn", type_to_char);
 				}
 				//Check for 3-fold repetition
 				int count = 0;
@@ -449,13 +454,13 @@ int main()
 				}
 				if (count >= 2)
 				{
-					DisplayEndGame(type_to_char, game_board, "Three-fold repetition, draw");
+					DisplayEndGame(move_history_pgn, game_board, "Three-fold repetition, drawn", type_to_char);
 				}
 				game_history.emplace_back(game_board.clone(), turn);
 
 				//50 moves
-				if (piece_at_start.value().get()->type == e_pawn || move.state == move_state::capture ||
-					move.state == move_state::check_capture)
+				if (from.value().get()->type == e_pawn || move.state.contains(capture) ||
+					(move.state.contains(check) && move.state.contains(capture)))
 				{
 					move_count = 0;
 				}
@@ -464,7 +469,7 @@ int main()
 					move_count += 0.5;
 					if (move_count >= 49.99)
 					{
-						DisplayEndGame(type_to_char, game_board, "50 moves without progress, draw");
+						DisplayEndGame(move_history_pgn, game_board, "50 moves without progress, drawn", type_to_char);
 					}
 				}
 
@@ -476,7 +481,7 @@ int main()
 				//Insufficient material
 				if (game_board.is_insufficient_material())
 				{
-					DisplayEndGame(type_to_char, game_board, "Insufficient material, draw");
+					DisplayEndGame(move_history_pgn, game_board, "Insufficient material, drawn", type_to_char);
 				}
 				turn = Invert(turn);
 			}
@@ -522,7 +527,7 @@ void DemoTextColor(HANDLE h_console)
 
 #pragma clang diagnostic pop
 
-void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board)
+void DisplayBoard(const std::vector<std::string>& pgn, board& game_board, std::map<type_enum, char>& type_to_char)
 {
 	std::array<std::array<std::pair<char, color_enum>, 8>, 8> pos_board {};
 	for (const auto& a: game_board.val)
@@ -565,15 +570,25 @@ void DisplayBoard(std::map<type_enum, char>& type_to_char, board& game_board)
 		}
 		std::cout << '\n';
 	}
-	std::cout << "  A B C D E F G H" << '\n';
+	std::cout << "  A B C D E F G H\nGame History: ";
+	for (std::size_t ind = 0; ind < pgn.size(); ind++)
+	{
+		if (ind % 2 == 0)
+		{
+			std::cout << (ind / 2 + 1) << ". ";
+		}
+		std::cout << pgn[ind] << ' ';
+	}
+	std::cout << '\n';
 }
 
-void DisplayEndGame(std::map<type_enum, char>& type_to_char, board& game_board, std::string&& reason)
+void DisplayEndGame(const std::vector<std::string>& pgn, board& game_board, std::string&& reason,
+					std::map<type_enum, char>& type_to_char)
 {
 	HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(h_console, C_Normal + C_Normal_Tile);
 	system("cls");
-	DisplayBoard(type_to_char, game_board);
+	DisplayBoard(pgn, game_board, type_to_char);
 	std::cout << "Game ended: " << reason << '\n';
 	std::exit(0);
 }

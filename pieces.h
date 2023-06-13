@@ -5,6 +5,8 @@
 #ifndef CHESS_PIECES_H
 #define CHESS_PIECES_H
 
+#include <utility>
+
 #include "board.h"
 #include "enum.h"
 #include "move_result.h"
@@ -25,6 +27,11 @@ public:
     position() = default;
 
     bool operator==(const position &other) const = default;
+
+	[[nodiscard]] std::string to_string() const
+	{
+		return std::string(1, 'a' + x) + std::to_string(y + 1);
+	}
 };
 
 struct standard_move
@@ -36,9 +43,9 @@ struct standard_move
 	std::string err{};
 
 	standard_move(position from, position to, move_state state, type_enum promotion_type = type_enum::e_empty)
-			: from(from), to(to), state(state), promotion_type(promotion_type)
+			: from(from), to(to), state(std::move(state)), promotion_type(promotion_type)
 	{};
-	standard_move(move_state state, std::string err): state(state), err(err){};
+	standard_move(move_state state, std::string err): state(std::move(state)), err(std::move(err)){};
 	standard_move() = default;
 };
 class pieces {
