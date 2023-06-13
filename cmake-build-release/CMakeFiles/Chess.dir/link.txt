@@ -1,3 +1,0 @@
-"D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8770.66\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\Chess.dir/objects.a
-D:\PROGRA~1\JETBRA~1\apps\CLion\ch-0\231877~1.66\bin\mingw\bin\ar.exe qc CMakeFiles\Chess.dir/objects.a @CMakeFiles\Chess.dir\objects1
-D:\PROGRA~1\JETBRA~1\apps\CLion\ch-0\231877~1.66\bin\mingw\bin\G__~1.EXE -O3 -DNDEBUG -Wl,--whole-archive CMakeFiles\Chess.dir/objects.a -Wl,--no-whole-archive -o Chess.exe -Wl,--out-implib,libChess.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Chess.dir\linkLibs.rsp

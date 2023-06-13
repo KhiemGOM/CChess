@@ -1,4 +1,0 @@
-"D:\Programmes App\JetBrains\apps\CLion\ch-0\231.8770.66\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - MinGW Makefiles" -S D:\C++\Chess -B D:\C++\Chess\cmake-build-release
--- Configuring done
--- Generating done
--- Build files have been written to: D:/C++/Chess/cmake-build-release
