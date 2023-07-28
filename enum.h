@@ -7,6 +7,7 @@
 
 #include <initializer_list>
 #include <ranges>
+#include <vector>
 #include <algorithm>
 
 enum color_enum
