@@ -1,8 +1,4 @@
-#include <chrono>
 #include <cmath>
-#include <cstdlib>
-#include <iomanip>
-#include <iostream>
 #include <map>
 #include <processenv.h>
 #include <sstream>
@@ -26,12 +22,25 @@
 #include "choice_menu.h"
 #include "text_menu.h"
 
-int C_Normal = 7, C_White_Piece = 15, C_Black_Piece = 0, C_White_Tile = 112, C_Black_Tile = 160, C_Normal_Tile = 0;
+// Color constants
+const int COLOR_NORMAL = 7;
+const int COLOR_WHITE_PIECE = 15;
+const int COLOR_BLACK_PIECE = 0;
+const int COLOR_WHITE_TILE = 112;
+const int COLOR_BLACK_TILE = 160;
+const int COLOR_NORMAL_TILE = 0;
 
-void DisplayEndGame(const std::vector<std::string>& pgn, board& game_board, std::string&& reason,
+int C_Normal = COLOR_NORMAL;
+int C_White_Piece = COLOR_WHITE_PIECE;
+int C_Black_Piece = COLOR_BLACK_PIECE;
+int C_White_Tile = COLOR_WHITE_TILE;
+int C_Black_Tile = COLOR_BLACK_TILE;
+int C_Normal_Tile = COLOR_NORMAL_TILE;
+
+void DisplayEndGame(const std::vector<std::string>& pgn, const board& game_board, std::string&& reason,
 					std::map<type_enum, char>& type_to_char);
 
-void DisplayBoard(const std::vector<std::string>& pgn, board& game_board, std::map<type_enum, char>& type_to_char);
+void DisplayBoard(const std::vector<std::string>& pgn, const board& game_board, std::map<type_enum, char>& type_to_char);
 
 color_enum Invert(color_enum color);
 
@@ -527,7 +536,7 @@ void DemoTextColor(HANDLE h_console)
 
 #pragma clang diagnostic pop
 
-void DisplayBoard(const std::vector<std::string>& pgn, board& game_board, std::map<type_enum, char>& type_to_char)
+void DisplayBoard(const std::vector<std::string>& pgn, const board& game_board, std::map<type_enum, char>& type_to_char)
 {
 	std::array<std::array<std::pair<char, color_enum>, 8>, 8> pos_board {};
 	for (const auto& a: game_board.val)
@@ -582,7 +591,7 @@ void DisplayBoard(const std::vector<std::string>& pgn, board& game_board, std::m
 	std::cout << '\n';
 }
 
-void DisplayEndGame(const std::vector<std::string>& pgn, board& game_board, std::string&& reason,
+void DisplayEndGame(const std::vector<std::string>& pgn, const board& game_board, std::string&& reason,
 					std::map<type_enum, char>& type_to_char)
 {
 	HANDLE h_console = GetStdHandle(STD_OUTPUT_HANDLE);
